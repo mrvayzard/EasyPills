@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
         for (var i=0; i<docs.length; i+=chunkSize) {
             productChunks.push(docs.slice(i, i+chunkSize));
         }
-        res.render('index', { title: 'Easy-Pills.com', products: productChunks });
+        res.render('index', { title: 'Easy-Pills.com', products: productChunks, path: '/' });
     });
 });
 
@@ -33,7 +33,7 @@ router.post('/search', function (req, res, next) {
         for (var i=0; i<docs.length; i+=chunkSize) {
             productChunks.push(docs.slice(i, i+chunkSize));
         }
-        res.render('index', { title: 'Easy-Pills.com', products: productChunks });
+        res.render('index', { title: 'Easy-Pills.com', products: productChunks, path: '/' });
     })
 })
 

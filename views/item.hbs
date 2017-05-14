@@ -1,0 +1,119 @@
+<section id="upper_line">
+    <div class="container">
+        <div class="row">
+            <a href="/" class="decoration_none">
+                <h4>Повернутись до результатів пошуку</h4>
+            </a>
+            <hr>
+            <h2 id="item_name">{{product.name}}</h2>
+        </div>
+    </div>
+</section>
+
+<section id="item_info">
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#info">Загальне</a></li>
+            <li><a data-toggle="tab" href="#instruction">Інструкція</a></li>
+            <li><a data-toggle="tab" href="#buy">Де придбати</a></li>
+            <li><a data-toggle="tab" href="#analogs" style="margin-right: 0px">Аналоги</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="info" class="tab-pane fade in active">
+                <div class="row">
+                    <div class="col-md-5 main_info">
+                        <img src="{{product.imagePath}}" class="full_item_image">
+                        <br>
+                        <span>Оцінка користувачів:</span>
+                        <div class="rating vcenter" class="item_rating">
+                            <div class="productRate">
+                                <div style="width: {{product.rating}}%"></div>
+                            </div>
+                            <div class="rating_count">
+                                {{product.rating}}
+                            </div>
+                        </div>
+                        <form action="#add_favour">
+                            <button id="add_favour_btn" type="submit">Додати в закладки</button>
+                        </form>
+                    </div>
+                    <div class="col-md-7 other_info">
+                        <p><span>Назва: </span>{{product.name}}</p>
+                        <p><span>Виробник: </span>{{product.manufacturer}}</p>
+                        <p><span>Лікарська форма: </span>{{product.type}}</p>
+                        <p><span>Форма випуску: </span>{{product.releaseForm}}</p>
+                        <p><span>Діючі речовини: </span>{{product.mainSubstance}}</p>
+                        <p><span>Допоміжні речовини: </span>{{product.otherSubstances}}</p>
+                        <p><span>Фармакотерапевтична група: </span>{{product.pharmacologicalGroup}}</p>
+                        <p><span>Показання для застосування: </span>{{product.indications}}</p>
+                    </div>
+                </div>
+            </div>
+            <div id="instruction" class="tab-pane fade">
+                <h3 id="instruct_h">
+                    Інструкція для медичного застосування препарату {{product.name}}
+                </h3>
+
+                {{product.instruction}}
+
+            </div>
+            <div id="buy" class="tab-pane fade">
+                <p>Дана функція знаходиться в стані реалізації. Вибачте за незручності!</p>
+                <p style="height: 600px"/>
+            </div>
+            <div id="analogs" class="tab-pane fade">
+                <div class="sort">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h2 id="analogs_h">Для даного препарату доступні наступні аналоги</h2>
+                        </div>
+                        <div class="col-md-2">
+                            <h4>Сортувати за: </h4>
+                            <form action="#change_parameeters">
+                                <select class="form-control sort_param">
+                                    <option value="name">За назвою</option>
+                                    <option value="rating">За рейтингом</option>
+                                    <option value="price">За ціною</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-2">-->
+                    <!--<button id="set_param" type="submit">ОК</button>-->
+                    <!--</div>-->
+                </div>
+                <hr>
+
+                {{#each product.analogs}}
+                    <div class="analog_item">
+                        <div class="row">
+                            <div class="col-md-3" style="text-align: center;">
+                                <img src="{{this.imagePath}}" class="analog_img">
+                                <div class="rating vcenter" class="item_rating">
+                                    <div class="productRate">
+                                        <div style="width: {{this.rating}}%"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <h2>Алтейочка</h2>
+                                <p><span>Діюча речовина:</span> {{this.mainSubstance}}</p>
+                                <p><span>Категорія:</span> {{this.category}}</p>
+                                <p><span>Виробник:</span> {{this.manufacturer}}</p>
+                                <p><span>Склад:</span> {{this.mainSubstance}}, {{this.otherSubstances}}</p>
+                            </div>
+                            <div class="col-md-4 price_info">
+                                <h2 class="price_h">Ціна</h2>
+                                <h1 class="price_range">{{this.price}}</h1>
+                                <h4 class="proposition_count">Кількість пропозицій: {{this.offerCount}}</h4>
+                            </div>
+                        </div>
+                        <hr id="l2">
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</section>
