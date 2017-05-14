@@ -1,2 +1,22 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+{{> search}}
+
+{{> params}}
+
+<section id="items" >
+    <div class="container">
+
+
+        <div class="row text-center">
+            {{> item}}
+        </div>
+
+    </div>
+</section>
+
+<section id="loader">
+    <div class="container-">
+        <div class="load_items">
+            <img src="img/load.svg">
+        </div>
+    </div>
+</section>
