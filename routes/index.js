@@ -11,7 +11,11 @@ router.use(bodyParser.urlencoded({
 /* GET home page. */
 router.get('/', function(req, res, next) {
     Product.find(function (err, docs) {
-        docs.sort(compareName);
+        if(req.param('sort')==='name')
+            docs.sort(compareName);
+        else if(req.param('sort')==='price')
+            docs.sort(comparePrice);
+        else docs.sort(compareRating);
         var productChunks = [];
         var chunkSize = 3;
         for (var i=0; i<docs.length; i+=chunkSize) {
@@ -50,9 +54,9 @@ function comparePrice(a,b) {
 }
 
 function compareRating(a,b) {
-    if (a.rating < b.rating)
-        return -1;
     if (a.rating > b.rating)
+        return -1;
+    if (a.rating < b.rating)
         return 1;
     return 0;
 }

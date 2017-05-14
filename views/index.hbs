@@ -27,20 +27,41 @@
             <div class="col-md-6 items_type">
                 <h2>Популярне</h2>
             </div>
-            <form action="#change_parameeters">
+            <form action="/" method="get">
                 <div class="col-md-2">
                     <h4>Сортувати за: </h4>
-                    <select class="form-control sort_param">
+                    <select class="form-control sort_param" id="sort" name="sort">
                         <option value="name">За назвою</option>
                         <option value="rating">За рейтингом</option>
                         <option value="price">За ціною</option>
                     </select>
+
+                    <!--<script>-->
+                        <!--var sortValue = 'name';-->
+                        <!--var sel = document.getElementById("sort");-->
+                        <!--sel.onchange = function() {-->
+                            <!--sortValue = sel.value;-->
+                        <!--};-->
+                        <!---->
+                        <!--var minValue = '0';-->
+                        <!--var maxValue = '10000';-->
+                        <!--var minPrice = document.getElementById("min_price");-->
+                        <!--var maxPrice = document.getElementById("max_price");-->
+                        <!--minValue.onchange = function() {-->
+                            <!--minValue = sel.value;-->
+                        <!--};-->
+                        <!--maxValue.onchange = function() {-->
+                            <!--maxValue = sel.value;-->
+                        <!--};-->
+                        <!---->
+                    <!--</script>-->
+
                 </div>
                 <div class="col-md-2">
                     <h4>Діапазон цін: </h4>
-                    <input type="text" id="min_price">
+                    <input type="text" id="min_price" name="min">
                     -
-                    <input type="text" id="max_price">
+                    <input type="text" id="max_price" name="max">
                 </div>
                 <div class="col-md-2">
                     <button id="set_param" type="submit">ОК</button>
@@ -60,11 +81,11 @@
                     <div class="col-md-4">
                         <div class="item">
                             <div class="item_image vcenter">
-                                <a href="{{this.url}}">
-                                    <img src="{{ this.imagePath }}" href="item.html?items-3" alt="Item 3" class="img-responsive center-block item_preview">
+                                <a href="/item/{{this.id}}">
+                                    <img src="{{ this.imagePath }}" alt="Item 3" class="img-responsive center-block item_preview">
                                 </a>
                             </div>
-                            <a href="{{this.url}}" class="decoration_none">
+                            <a href="/item/{{this.id}}" class="decoration_none">
                                 <h2>{{this.name}}</h2>
                             </a>
                             <div class="rating vcenter">
