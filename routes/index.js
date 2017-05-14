@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
         var productChunks = [];
         var chunkSize = 3;
         for (var i=0; i<docs.length; i+=chunkSize) {
-          productChunks.push(docs.slice(i, i+chunkSize));
+            productChunks.push(docs.slice(i, i+chunkSize));
         }
         res.render('index', { title: 'Easy-Pills.com', products: productChunks });
     });
@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/search', function (req, res, next) {
     var searchValue = req.param('search_value', null);
-    Product.find( { name: searchValue }, function (err, docs) {
+    Product.find( { name: {$regex : '^' + searchValue} }, function (err, docs) {
         var productChunks = [];
         var chunkSize = 3;
         for (var i=0; i<docs.length; i+=chunkSize) {
@@ -34,9 +34,9 @@ router.post('/search', function (req, res, next) {
 })
 
 function compareName(a,b) {
-    if (a.name < b.name)
+    if (a.name.toLowerCase() < b.name.toLowerCase())
         return -1;
-    if (a.name > b.name)
+    if (a.name.toLowerCase() > b.name.toLowerCase())
         return 1;
     return 0;
 }
