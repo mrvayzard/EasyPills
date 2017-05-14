@@ -256,7 +256,8 @@ hr#l2 {
 }
 
 .item_preview {
-    width: 250px;
+    max-width: 250px;
+    max-height: 250px;
 }
 
 span {
