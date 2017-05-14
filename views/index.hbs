@@ -1,14 +1,89 @@
-{{> search}}
+<section id="main">
+    <div class="container text-center">
+        <div class="row">
+            <h1>Find it!</h1>
+        </div>
+        <form action="#search_confirm">
+            <div class="row">
+                <input type="text" id="search" placeholder="Пошук...">
+            </div>
+            <div class="row vcenter check">
+                <input type="checkbox">
+                <h3>шукати аптеки тільки в моєму районі</h3>
+            </div>
+            <div class="row">
+                <button id="find_btn" type="submit">Знайти</button>
+            </div>
+        </form>
+        <div class="row">
+            <h5>*введіть в поле пошуку назву лікарського препарату або діючу речовину для пошуку аналогів</h5>
+        </div>
+    </div>
+</section>
 
-{{> params}}
+<section id="params">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 items_type">
+                <h2>Популярне</h2>
+            </div>
+            <form action="#change_parameeters">
+                <div class="col-md-2">
+                    <h4>Сортувати за: </h4>
+                    <select class="form-control sort_param">
+                        <option value="name">За назвою</option>
+                        <option value="rating">За рейтингом</option>
+                        <option value="price">За ціною</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <h4>Діапазон цін: </h4>
+                    <input type="text" id="min_price">
+                    -
+                    <input type="text" id="max_price">
+                </div>
+                <div class="col-md-2">
+                    <button id="set_param" type="submit">ОК</button>
+                </div>
+            </form>
+        </div>
+        <hr>
+    </div>
+</section>
 
 <section id="items" >
     <div class="container">
 
-
-        <div class="row text-center">
-            {{> item}}
-        </div>
+        {{#each products}}
+            <div class="row text-center">
+                {{#each this}}
+                    <div class="col-md-4">
+                        <div class="item">
+                            <div class="item_image vcenter">
+                                <a href="easypills.com/item.html?items-3">
+                                    <img src="{{ this.imagePath }}" href="item.html?items-3" alt="Item 3" class="img-responsive center-block item_preview">
+                                </a>
+                            </div>
+                            <a href="easypills.com/item.html?items-3" class="decoration_none">
+                                <h2>{{this.name}}</h2>
+                            </a>
+                            <div class="rating vcenter">
+                                <div class="productRate">
+                                    <div style="width: {{this.rating}}%"></div>
+                                </div>
+                                <div class="rating_count">
+                                    {{this.rating}}
+                                </div>
+                            </div>
+                            <p><span>Діюча речовина:</span> {{this.mainSubstance}}</p>
+                            <p><span>Категорія:</span> {{this.category}}</p>
+                            <div class="price">{{this.price}}</div>
+                            <p>Всього пропозицій: <span>{{this.offerCount}}</span></p>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        {{/each}}
 
     </div>
 </section>
