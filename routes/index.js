@@ -21,13 +21,14 @@ router.get('/', function(req, res, next) {
         for (var i=0; i<docs.length; i+=chunkSize) {
             productChunks.push(docs.slice(i, i+chunkSize));
         }
+        productChunks = productChunks.slice(0,5);
         res.render('index', { title: 'Easy-Pills.com', products: productChunks, path: '/' });
     });
 });
 
 router.post('/search', function (req, res, next) {
     var searchValue = req.param('search_value', null);
-    Product.find( { name: {$regex : '^' + searchValue} }, function (err, docs) {
+    Product.find( { name: {$regex : '^' + searchValue.toUpperCase()} }, function (err, docs) {
         var productChunks = [];
         var chunkSize = 3;
         for (var i=0; i<docs.length; i+=chunkSize) {

@@ -40,23 +40,21 @@
                     </div>
                     <div class="col-md-7 other_info">
                         <p><span>Назва: </span>{{product.name}}</p>
+                        <p><span>Міжнародне найменування: </span>{{product.internationalName}}</p>
                         <p><span>Виробник: </span>{{product.manufacturer}}</p>
-                        <p><span>Лікарська форма: </span>{{product.type}}</p>
-                        <p><span>Форма випуску: </span>{{product.releaseForm}}</p>
-                        <p><span>Діючі речовини: </span>{{product.mainSubstance}}</p>
-                        <p><span>Допоміжні речовини: </span>{{product.otherSubstances}}</p>
-                        <p><span>Фармакотерапевтична група: </span>{{product.pharmacologicalGroup}}</p>
-                        <p><span>Показання для застосування: </span>{{product.indications}}</p>
+                        <p><span>Форма випуску: </span>{{product.form}}</p>
+                        <p><span>Діючі речовини: </span>{{product.activeIngredients}}</p>
+                        <p><span>Термін придатності: </span>{{product.validity}}</p>
                     </div>
                 </div>
             </div>
             <div id="instruction" class="tab-pane fade">
-                <h3 id="instruct_h">
-                    Інструкція для медичного застосування препарату {{product.name}}
-                </h3>
-
-                {{product.instruction}}
-
+                <a href="{{product.instructionUrl}}" class="decoration_none">
+                    <h3 id="instruct_h">
+                        Завантажити інструкцію для медичного застосування препарату {{product.name}}
+                    </h3>
+                </a>
+                <p style="height: 600px"/>
             </div>
             <div id="buy" class="tab-pane fade">
                 <p>Дана функція знаходиться в стані реалізації. Вибачте за незручності!</p>
@@ -85,7 +83,7 @@
                 </div>
                 <hr>
 
-                {{#each product.analogs}}
+                {{#each analogs}}
                     <div class="analog_item">
                         <div class="row">
                             <div class="col-md-3" style="text-align: center;">
@@ -98,11 +96,10 @@
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                <h2>Алтейочка</h2>
-                                <p><span>Діюча речовина:</span> {{this.mainSubstance}}</p>
-                                <p><span>Категорія:</span> {{this.category}}</p>
+                                <h2>{{this.name}}</h2>
+                                <p><span>Діюча речовина:</span> {{this.activeIngredients}}</p>
                                 <p><span>Виробник:</span> {{this.manufacturer}}</p>
-                                <p><span>Склад:</span> {{this.mainSubstance}}, {{this.otherSubstances}}</p>
+                                <p><span>Форма випуску:</span> {{this.form}}</p>
                             </div>
                             <div class="col-md-4 price_info">
                                 <h2 class="price_h">Ціна</h2>

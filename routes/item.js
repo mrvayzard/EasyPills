@@ -9,8 +9,14 @@ var Product = require('../models/product');
 /* GET users listing. */
 router.get('/:id', function(req, res, next) {
     var productId = req.params.id;
+
+
     Product.findById(productId, function (err, product) {
-        res.render('item', { title: product.name, product: product, path: '../'});
+        Product.find( {codeATS: product.codeATS, registration: { $ne: product.registration } }, function (err, analogs) {
+            if(product.codeATS === '')
+                analogs = null;
+            res.render('item', { title: product.name, product: product, path: '../', analogs: analogs});
+        });
     });
 });
 
