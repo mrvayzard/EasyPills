@@ -17,9 +17,12 @@
     "express": "~4.14.1",
     "express-handlebars": "^3.0.0",
     "hbs": "~4.0.1",
+    "mht": "^1.0.2",
+    "mhtml": "^0.1.2",
     "mongoose": "^4.9.9",
     "morgan": "~1.7.0",
     "needle": "^1.6.0",
+    "readline": "^1.3.0",
     "request": "^2.81.0",
     "serve-favicon": "~2.3.2",
     "tress": "^1.0.3"

@@ -20,13 +20,13 @@ var urlAddress = 'http://drlz.com.ua/ibp/ddsite.nsf';
 
 var getMainUrls = function () {
 
-    for (var i=5; i<6; i++) {
-        for (var j=1; j<2; j++) {
+    for (var i=0; i<6; i++) {
+        for (var j=1; j<10; j++) {
             mainUrls.push('http://drlz.com.ua/ibp/ddsite.nsf/all/shlist?opendocument&sym=20' + (12+ i) + 0 + j);
         }
-        // for (var j=10; j<13; j++) {
-        //     mainUrls.push('http://drlz.com.ua/ibp/ddsite.nsf/all/shlist?opendocument&sym=20' + (12+ i) + j);
-        // }
+        for (var j=10; j<13; j++) {
+            mainUrls.push('http://drlz.com.ua/ibp/ddsite.nsf/all/shlist?opendocument&sym=20' + (12+ i) + j);
+        }
     }
 
 }
@@ -111,7 +111,7 @@ cr1.on('drain',function(){
                         instructionURL = 'http://drlz.com.ua/ibp' + instructionURL.substring(5);
                     else instructionURL = '#';
 
-                    console.log(instructionURL);
+                    //console.log(instructionURL);
 
                     $('tr').each(function (val, index) {
                         temp=$(this).text();
@@ -145,10 +145,10 @@ cr1.on('drain',function(){
                     })
 
                     products.push(new Product({
-                        name: name + 'V2',
+                        name: name,
                         manufacturer: manufacturer,
                         form: form,
-                        registration: registration + 'V2',
+                        registration: registration,
                         orderMON: orderMON,
                         orderMONValidity: orderMONValidity,
                         declarant: declarant,
@@ -188,5 +188,3 @@ cr1.on('drain',function(){
         });
     });
 });
-
-//==============================================

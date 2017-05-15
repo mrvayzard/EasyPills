@@ -35,27 +35,6 @@
                         <option value="rating">За рейтингом</option>
                         <option value="price">За ціною</option>
                     </select>
-
-                    <!--<script>-->
-                        <!--var sortValue = 'name';-->
-                        <!--var sel = document.getElementById("sort");-->
-                        <!--sel.onchange = function() {-->
-                            <!--sortValue = sel.value;-->
-                        <!--};-->
-                        <!---->
-                        <!--var minValue = '0';-->
-                        <!--var maxValue = '10000';-->
-                        <!--var minPrice = document.getElementById("min_price");-->
-                        <!--var maxPrice = document.getElementById("max_price");-->
-                        <!--minValue.onchange = function() {-->
-                            <!--minValue = sel.value;-->
-                        <!--};-->
-                        <!--maxValue.onchange = function() {-->
-                            <!--maxValue = sel.value;-->
-                        <!--};-->
-                        <!---->
-                    <!--</script>-->
-
                 </div>
                 <div class="col-md-2">
                     <h4>Діапазон цін: </h4>
@@ -108,6 +87,10 @@
 
     </div>
 </section>
+
+<script>
+    document.getElementById('sort').value='{{sortMethod}}';
+</script>
 
 <!--<section id="loader">-->
     <!--<div class="container-">-->

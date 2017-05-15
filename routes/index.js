@@ -11,30 +11,47 @@ router.use(bodyParser.urlencoded({
 /* GET home page. */
 router.get('/', function(req, res, next) {
     Product.find(function (err, docs) {
-        if(req.param('sort')==='name')
+
+        var sortMethod = req.param('sort');
+        if(sortMethod===undefined)
+            sortMethod = 'rating';
+
+        if(sortMethod==='name')
             docs.sort(compareName);
-        else if(req.param('sort')==='price')
+        else if(sortMethod==='price')
             docs.sort(comparePrice);
         else docs.sort(compareRating);
+
         var productChunks = [];
         var chunkSize = 3;
         for (var i=0; i<docs.length; i+=chunkSize) {
             productChunks.push(docs.slice(i, i+chunkSize));
         }
         productChunks = productChunks.slice(0,5);
-        res.render('index', { title: 'Easy-Pills.com', products: productChunks, path: '/' });
+        res.render('index', { title: 'Easy-Pills.com', products: productChunks, path: '/', sortMethod: sortMethod });
     });
 });
 
 router.post('/search', function (req, res, next) {
     var searchValue = req.param('search_value', null);
     Product.find( { name: {$regex : '^' + searchValue.toUpperCase()} }, function (err, docs) {
+
+        var sortMethod = req.param('sort');
+        if(sortMethod===undefined)
+            sortMethod = 'rating';
+
+        if(sortMethod==='name')
+            docs.sort(compareName);
+        else if(sortMethod==='price')
+            docs.sort(comparePrice);
+        else docs.sort(compareRating);
+
         var productChunks = [];
         var chunkSize = 3;
         for (var i=0; i<docs.length; i+=chunkSize) {
             productChunks.push(docs.slice(i, i+chunkSize));
         }
-        res.render('index', { title: 'Easy-Pills.com', products: productChunks, path: '/' });
+        res.render('index', { title: 'Easy-Pills.com', products: productChunks, path: '/', sortMethod: sortMethod});
     })
 })
 
