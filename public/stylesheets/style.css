@@ -126,6 +126,11 @@ h2 {
     color: #11cc92;
     font-size: 20px;
     font-weight: bold;
+    text-transform: lowercase;
+}
+
+h2:first-letter {
+    text-transform: capitalize;
 }
 
 h2#item_name {
@@ -492,3 +497,66 @@ li.active > a {
 .retweet {
     width: 100px;
 }*/
+
+/*ul{*/
+    /*background-color: rgba(255, 255, 255, 1);*/
+    /*width: 500px;*/
+    /*border-radius: 5px;*/
+    /*padding: 10px;*/
+/*}*/
+
+/*li {*/
+    /*padding-bottom: 5px;*/
+    /*list-style-type: none;*/
+    /*padding-left: 0px;*/
+/*}*/
+
+.ui-widget-content
+{
+    border-radius: 5px;
+    color: #222222;
+    background-color: white;
+}
+
+.ui-menu
+{
+    display: block;
+    float: left;
+    list-style: none outside none;
+    margin: 0;
+    padding: 2px;
+}
+
+.ui-menu .ui-menu-item
+{
+    clear: left;
+    float: left;
+    margin: 0;
+    width: 100%;
+    color: #222222;
+
+}
+
+.ui-menu .ui-menu-item :hover
+{
+    display: block;
+    padding-left: 3px;
+    text-decoration: none;
+    color: #222222;
+    cursor: pointer;
+    background-color: #afffe1;
+}
+
+.tab-content {
+    min-height: 600px;
+}
+
+.active_substance {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* number of lines to show */
+    line-height: 18px; /* fallback */
+    max-height: 54px; /* fallback */
+}

@@ -3,7 +3,7 @@
         <div class="row">
             <h1>Find it!</h1>
         </div>
-        <form action="/search" method="post">
+        <form action="/search" method="post" id="search_form">
             <div class="row">
                 <input type="text" id="search" placeholder="Пошук..." name="search_value">
             </div>
@@ -52,19 +52,19 @@
 </section>
 
 <section id="items" >
-    <div class="container">
+    <div class="container" id="items_container">
 
         {{#each products}}
-            <div class="row text-center">
+            <div class="row text-center" id="items">
                 {{#each this}}
                     <div class="col-md-4">
                         <div class="item">
                             <div class="item_image vcenter">
-                                <a href="/item/{{this.id}}">
+                                <a href="/item/{{this.id}}" name="href1">
                                     <img src="{{ this.imagePath }}" alt="Item 3" class="img-responsive center-block item_preview">
                                 </a>
                             </div>
-                            <a href="/item/{{this.id}}" class="decoration_none">
+                            <a href="/item/{{this.id}}" class="decoration_none" name="href2">
                                 <h2>{{this.name}}</h2>
                             </a>
                             <div class="rating vcenter">
@@ -75,10 +75,10 @@
                                     {{this.rating}}
                                 </div>
                             </div>
-                            <p><span>Діюча речовина:</span> {{this.mainSubstance}}</p>
-                            <p><span>Категорія:</span> {{this.category}}</p>
-                            <div class="price">{{this.price}}</div>
-                            <p>Всього пропозицій: <span>{{this.offerCount}}</span></p>
+                            <p class="active_substance"><span>Діюча речовина:</span> {{this.activeIngredients}}</p>
+                            <p class="manufacturer"><span>Виробник:</span> {{this.manufacturer}}</p>
+                            <div class="price">{{this.price}}0 грн</div>
+                            <p>Всього пропозицій: <span>{{this.offerCount}}0</span></p>
                         </div>
                     </div>
                 {{/each}}
@@ -90,7 +90,108 @@
 
 <script>
     document.getElementById('sort').value='{{sortMethod}}';
+
+    $(function () {
+
+        $("#search").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/search_member",
+                    type: "GET",
+                    data: request,  // request is the value of search input
+                    success: function (data) {
+                        // Map response values to fiedl label and value
+                        response($.map(data, function (el) {
+                            return {
+                                label: el.name.toLowerCase(),
+                                value: el._id
+                            };
+                        }));
+                    }
+                });
+            },
+
+            // The minimum number of characters a user must type before a search is performed.
+            minLength: 3,
+
+            // set an onFocus event to show the result on input field when result is focused
+            focus: function (event, ui) {
+                this.value = ui.item.label;
+                // Prevent other event from not being execute
+                event.preventDefault();
+            },
+            select: function (event, ui) {
+                // Prevent value from being put in the input:
+                this.value = ui.item.label;
+                // Set the id to the next input hidden field
+                $(this).next("input").val(ui.item.value);
+                // Prevent other event from not being execute
+                event.preventDefault();
+                // optionnal: submit the form after field has been filled up
+                $('#search_form').submit();
+            }
+        });
+
+    });
+
+    $(window).scroll(function(request, response) {
+        if ($(window).scrollTop() >= ($(document).height() - $(window).height() - 250)) {
+
+                $.ajax({
+                    url: "/load",
+                    type: "GET",
+                    data: {count: $("#items_container").find(".item").length},
+                    success: function (data) {
+
+//                        var p1 = new Promise(
+//
+//                                // Функция разрешения позволяет завершить успешно или
+//                                // отклонить обещание
+//                                function(resolve, reject) {
+//
+//                                    row = $(".row.text-center").first().html("").clone();
+//
+//                                    for (var i=0; i<3; i++) {
+//                                        var template = $(".col-md-4").first().clone();
+//                                        //$(template).find(".item_preview").attr("href", "/item/" + data[i].id);
+//                                        //$(template).find("h2").text(i);
+//                                        row.append(template);
+//                                    }
+//                                    resolve(row);
+//                                });
+//
+//                        // Указываем, что сделать с выполненным обещанием
+//                        p1.then(
+//                                // Записываем в протокол
+//                                function(val) {
+//                                    console.log("lkl;kj: " + val);
+//                                    $("#items_container").append(val);
+//                                });
+                        console.log($("#items_container").find(".item").length);
+                        var row = $(".row.text-center").first().html("").clone();
+
+                                    for (var i=0; i<3; i++) {
+                                        var template = $(".col-md-4").first().clone();
+                                        console.log(data);
+                                        //$(template).find(".item_preview").attr("src", "/item/" + data[i]._id);
+                                        console.log(data[i]._id);
+                                        $(template).find("h2").text(data[i].name);
+                                        $(template).find(".active_substance").html('<span>Діюча речовина:</span> ' + data[i].activeIngredients );
+                                        $(template).find(".manufacturer").html('<span>Виробник:</span> ' + data[i].manufacturer );
+                                        $(template).find("[name=href1]").attr("href", "/item/" + data[i]._id);
+                                        $(template).find("[name=href2]").attr("href", "/item/" + data[i]._id);
+                                        row.append(template);
+                                    }
+                        $("#items_container").append(row);
+
+                    }
+                });
+        }
+    });
+
 </script>
+
+
 
 <!--<section id="loader">-->
     <!--<div class="container-">-->

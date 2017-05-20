@@ -8,11 +8,15 @@ router.use(bodyParser.urlencoded({
     extended: true
 }));
 
+var sortMethod = "rating";
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    page = 15;
+    regex = new RegExp();
     Product.find(function (err, docs) {
 
-        var sortMethod = req.param('sort');
+        sortMethod = req.param('sort');
         if(sortMethod===undefined)
             sortMethod = 'rating';
 
@@ -33,10 +37,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/search', function (req, res, next) {
+    page = 15;
     var searchValue = req.param('search_value', null);
-    Product.find( { name: {$regex : '^' + searchValue.toUpperCase()} }, function (err, docs) {
+    regex = new RegExp('^' + searchValue.toUpperCase());
+    Product.find( { name: regex }, function (err, docs) {
 
-        var sortMethod = req.param('sort');
+        sortMethod = req.param('sort');
         if(sortMethod===undefined)
             sortMethod = 'rating';
 
@@ -51,6 +57,7 @@ router.post('/search', function (req, res, next) {
         for (var i=0; i<docs.length; i+=chunkSize) {
             productChunks.push(docs.slice(i, i+chunkSize));
         }
+        productChunks = productChunks.slice(0,5);
         res.render('index', { title: 'Easy-Pills.com', products: productChunks, path: '/', sortMethod: sortMethod});
     })
 })
@@ -78,5 +85,62 @@ function compareRating(a,b) {
         return 1;
     return 0;
 }
+
+buildResultSet = function(docs) {
+    var result = [];
+    for(var object in docs){
+        result.push(docs[object]);
+    }
+    return result;
+}
+
+router.get('/search_member', function(req, res) {
+    var regex = new RegExp(req.query["term"], 'i');
+    var query = Product.find({name: regex}, { 'name': 1 }).sort({"updated_at":-1}).sort({"created_at":-1}).limit(10);
+
+    // Execute query in a callback and return users list
+    query.exec(function(err, items) {
+        if (!err) {
+
+            // Method to construct the json result set
+            var result = buildResultSet(items);
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        } else {
+            res.send(JSON.stringify(err), {
+                'Content-Type': 'application/json'
+            }, 404);
+        }
+    });
+});
+
+var page = 15;
+var regex = new RegExp();
+
+router.get('/load', function(req, res) {
+
+    console.log(page);
+    console.log("fff");
+    var sort123 = "name";
+    var query = Product.find({name: regex}).sort({[sortMethod]:1}).skip(page).limit(3);
+
+    // Execute query in a callback and return users list
+    query.exec(function(err, items) {
+        if (!err) {
+
+            // Method to construct the json result set
+            var result = buildResultSet(items);
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        } else {
+            res.send(JSON.stringify(err), {
+                'Content-Type': 'application/json'
+            }, 404);
+        }
+    });
+    page+=3;
+});
 
 module.exports = router;

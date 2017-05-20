@@ -10,8 +10,9 @@
         <link rel='stylesheet' href='{{ path }}stylesheets/bootstrap.min.css' />
         <link rel='stylesheet' href='{{ path }}stylesheets/style.css' />
         <link rel="stylesheet" href="{{ path }}stylesheets/fonts.css">
-        <script src="{{ path }}javascripts/jquery.min.js"></script>
-        <script src="{{ path }}javascripts/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
 
@@ -22,21 +23,20 @@
         {{> footer}}
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="javascripts/bootstrap.min.js"></script>
-        <script src="javascripts/jquery.nicescroll.min.js"></script>
-        <script src="javascripts/wow.min.js"></script>
-        <script>
-            new WOW().init();
-        </script>
-        <script>
-            $(document).ready(
-                    function() {
-                        $("html").niceScroll({cursorcolor:"#000"});
-                    }
-            );
-        </script>
+        <!--<script src="javascripts/jquery.nicescroll.min.js"></script>-->
+        <!--<script src="javascripts/wow.min.js"></script>-->
+        <!--<script>-->
+            <!--new WOW().init();-->
+        <!--</script>-->
+        <!--<script>-->
+            <!--$(document).ready(-->
+                    <!--function() {-->
+                        <!--$("html").niceScroll({cursorcolor:"#000"});-->
+                    <!--}-->
+            <!--);-->
+        <!--</script>-->
     </body>
 </html>

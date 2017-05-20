@@ -54,11 +54,9 @@
                         Завантажити інструкцію для медичного застосування препарату {{product.name}}
                     </h3>
                 </a>
-                <p style="height: 600px"/>
             </div>
             <div id="buy" class="tab-pane fade">
                 <p>Дана функція знаходиться в стані реалізації. Вибачте за незручності!</p>
-                <p style="height: 600px"/>
             </div>
             <div id="analogs" class="tab-pane fade">
                 <div class="sort">
@@ -87,7 +85,9 @@
                     <div class="analog_item">
                         <div class="row">
                             <div class="col-md-3" style="text-align: center;">
-                                <img src="{{this.imagePath}}" class="analog_img">
+                                <a href="{{this.id}}" class="decoration_none">
+                                    <img src="{{this.imagePath}}" class="analog_img">
+                                </a>
                                 <div class="rating vcenter" class="item_rating">
                                     <div class="productRate">
                                         <div style="width: {{this.rating}}%"></div>
@@ -96,15 +96,17 @@
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                <h2>{{this.name}}</h2>
+                                <a href="{{this.id}}" class="decoration_none">
+                                    <h2>{{this.name}}</h2>
+                                </a>
                                 <p><span>Діюча речовина:</span> {{this.activeIngredients}}</p>
                                 <p><span>Виробник:</span> {{this.manufacturer}}</p>
                                 <p><span>Форма випуску:</span> {{this.form}}</p>
                             </div>
                             <div class="col-md-4 price_info">
                                 <h2 class="price_h">Ціна</h2>
-                                <h1 class="price_range">{{this.price}}</h1>
-                                <h4 class="proposition_count">Кількість пропозицій: {{this.offerCount}}</h4>
+                                <h1 class="price_range">{{this.price}}0 грн</h1>
+                                <h4 class="proposition_count">Кількість пропозицій: 0{{this.offerCount}}</h4>
                             </div>
                         </div>
                         <hr id="l2">
