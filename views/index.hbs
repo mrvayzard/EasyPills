@@ -5,7 +5,7 @@
         </div>
         <form action="/search" method="post" id="search_form">
             <div class="row">
-                <input type="text" id="search" placeholder="Пошук..." name="search_value">
+                <input type="text" id="search" class="search" placeholder="Пошук..." name="search_value">
             </div>
             <div class="row vcenter check">
                 <input type="checkbox">
@@ -88,7 +88,16 @@
     </div>
 </section>
 
+<!--<section id="loader">-->
+    <!--<div class="container-">-->
+        <!--<div class="load_items">-->
+            <!--<img src="images/load.svg">-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</section>-->
+
 <script>
+
     document.getElementById('sort').value='{{sortMethod}}';
 
     $(function () {
@@ -135,12 +144,11 @@
     });
 
     $(window).scroll(function(request, response) {
-        if ($(window).scrollTop() >= ($(document).height() - $(window).height() - 250)) {
-
-                $.ajax({
+        if ($(window).scrollTop() >= ($(document).height() - $(window).height() - 100)) {
+            $.ajax({
                     url: "/load",
                     type: "GET",
-                    data: {count: $("#items_container").find(".item").length},
+                    //data: {count: $("#items_container").find(".item").length},
                     success: function (data) {
 
 //                        var p1 = new Promise(
@@ -167,23 +175,21 @@
 //                                    console.log("lkl;kj: " + val);
 //                                    $("#items_container").append(val);
 //                                });
-                        console.log($("#items_container").find(".item").length);
-                        var row = $(".row.text-center").first().html("").clone();
+                        if (data.length != 0) {
+                            var row = $(".row.text-center").first().clone();
+                            row.html("");
 
-                                    for (var i=0; i<3; i++) {
-                                        var template = $(".col-md-4").first().clone();
-                                        console.log(data);
-                                        //$(template).find(".item_preview").attr("src", "/item/" + data[i]._id);
-                                        console.log(data[i]._id);
-                                        $(template).find("h2").text(data[i].name);
-                                        $(template).find(".active_substance").html('<span>Діюча речовина:</span> ' + data[i].activeIngredients );
-                                        $(template).find(".manufacturer").html('<span>Виробник:</span> ' + data[i].manufacturer );
-                                        $(template).find("[name=href1]").attr("href", "/item/" + data[i]._id);
-                                        $(template).find("[name=href2]").attr("href", "/item/" + data[i]._id);
-                                        row.append(template);
-                                    }
-                        $("#items_container").append(row);
-
+                            for (var i = 0; i < 3; i++) {
+                                var template = $(".col-md-4").first().clone();
+                                $(template).find("h2").text(data[i].name);
+                                $(template).find(".active_substance").html('<span>Діюча речовина:</span> ' + data[i].activeIngredients);
+                                $(template).find(".manufacturer").html('<span>Виробник:</span> ' + data[i].manufacturer);
+                                $(template).find("[name=href1]").attr("href", "/item/" + data[i]._id);
+                                $(template).find("[name=href2]").attr("href", "/item/" + data[i]._id);
+                                row.append(template);
+                            }
+                            $("#items_container").append(row);
+                        }
                     }
                 });
         }
@@ -191,12 +197,3 @@
 
 </script>
 
-
-
-<!--<section id="loader">-->
-    <!--<div class="container-">-->
-        <!--<div class="load_items">-->
-            <!--<img src="img/load.svg">-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</section>-->

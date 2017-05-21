@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
         for (var i=0; i<docs.length; i+=chunkSize) {
             productChunks.push(docs.slice(i, i+chunkSize));
         }
-        productChunks = productChunks.slice(0,5);
+        productChunks = productChunks.slice(0,3);
         res.render('index', { title: 'Easy-Pills.com', products: productChunks, path: '/', sortMethod: sortMethod });
     });
 });
@@ -95,7 +95,7 @@ buildResultSet = function(docs) {
 }
 
 router.get('/search_member', function(req, res) {
-    var regex = new RegExp(req.query["term"], 'i');
+    regex = new RegExp(req.query["term"], 'i');
     var query = Product.find({name: regex}, { 'name': 1 }).sort({"updated_at":-1}).sort({"created_at":-1}).limit(10);
 
     // Execute query in a callback and return users list
@@ -121,8 +121,6 @@ var regex = new RegExp();
 router.get('/load', function(req, res) {
 
     console.log(page);
-    console.log("fff");
-    var sort123 = "name";
     var query = Product.find({name: regex}).sort({[sortMethod]:1}).skip(page).limit(3);
 
     // Execute query in a callback and return users list

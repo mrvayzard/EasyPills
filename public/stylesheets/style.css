@@ -185,7 +185,7 @@ h6 {
     font-size: 14px;
 }
 
-input#search {
+.search {
     background: url(../images/icons/search.png) no-repeat 470px white;
     background-size: 20px;
     width: 500px;
