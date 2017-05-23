@@ -1,0 +1,85 @@
+<section id="edit_form">
+    <div class="container">
+        <div class="row vcenter">
+            <h2 id="admin_header">Редагувати препарат</h2>
+        </div>
+        <form action="/save" method="post">
+            <div class="row field vcenter">
+                <div class="col-md-4 field1">
+                    <h4>Назва:</h4>
+                </div>
+                <div class="col-md-8 field2">
+                    <input type="text" name="name" class="field_input" placeholder="Текст...">
+                </div>
+            </div>
+            <div class="row field vcenter">
+                <div class="col-md-4 field1">
+                    <h4>Міжнародне найменування:</h4>
+                </div>
+                <div class="col-md-8 field2">
+                    <input type="text" name="international_name" class="field_input" placeholder="Текст...">
+                </div>
+            </div>
+            <div class="row field vcenter">
+                <div class="col-md-4 field1">
+                    <h4>Виробник:</h4>
+                </div>
+                <div class="col-md-8 field2">
+                    <input type="text" name="manufacturer" class="field_input" placeholder="Текст...">
+                </div>
+            </div>
+            <div class="row field vcenter">
+                <div class="col-md-4 field1">
+                    <h4>Форма випуску:</h4>
+                </div>
+                <div class="col-md-8 field2">
+                    <input type="text" name="form" class="field_input" placeholder="Текст...">
+                </div>
+            </div>
+            <div class="row field vcenter">
+                <div class="col-md-4 field1">
+                    <h4>Діючі речовини:</h4>
+                </div>
+                <div class="col-md-8 field2">
+                    <input type="text" name="active_substances" class="field_input" placeholder="Текст...">
+                </div>
+            </div>
+            <div class="row field vcenter">
+                <div class="col-md-4 field1">
+                    <h4>Термін придатності:</h4>
+                </div>
+                <div class="col-md-8 field2">
+                    <input type="text" name="validity" class="field_input" placeholder="Текст...">
+                </div>
+            </div>
+            <div class="row field vcenter">
+                <div class="col-md-4 field1">
+                    <h4>Код АТС:</h4>
+                </div>
+                <div class="col-md-8 field2">
+                    <input type="text" name="code_ats" class="field_input" placeholder="Текст...">
+                </div>
+            </div>
+            <div class="row field vcenter">
+                <div class="col-md-4 field1">
+                    <h4>Зображення:</h4>
+                </div>
+                <div class="col-md-8 field2">
+                    <input type="file" name="image">
+                </div>
+            </div>
+            <div class="row field">
+                <div class="col-md-4 field1">
+                    <h4>Інструкція:</h4>
+                </div>
+                <div class="col-md-8 field2">
+                    <textarea style="width: 70%; height: 300px"></textarea>
+                </div>
+            </div>
+            <div class="row field vcenter confirm_btns">
+                <button name="cancel">Скасувати</button>
+                <button name="save">Зберегти</button>
+            </div>
+        </form>
+    </div>
+</section>

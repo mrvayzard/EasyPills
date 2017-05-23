@@ -141,4 +141,8 @@ router.get('/load', function(req, res) {
     page+=3;
 });
 
+router.get('/admin', function (req, res) {
+    res.render('admin');
+})
+
 module.exports = router;
