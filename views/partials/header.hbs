@@ -11,9 +11,86 @@
                 <a href="/" id="logo_link">EasyPills.com</a>
             </div>
             <div class="col-sm-6 login">
-                <button data-toggle="modal" id="sign_in" href="#modal" >Вхід</button>
-                <button data-toggle="modal" id="sign_up" href="#modal">Реєстрація</button>
+                {{#if user}}
+                   <a href="/cabinet"> <button id="cabinet">Кабінет</button></a>
+                    <a href="/users/logout"> <button id="logout">Вийти</button></a>
+                {{else}}
+                    <button data-toggle="modal" id="sign_in" href="#modalAuth" >Вхід</button>
+                    <button data-toggle="modal" id="sign_up" href="#modalRegister">Реєстрація</button>
+                {{/if}}
+
             </div>
         </div>
     </div>
 </header>
+
+<div class="modal fade" id="modalAuth" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Авторизація</h4>
+            </div>
+            <div class="modal-body vcenter">
+                <form  id="login-form" method="post" action="/users/login">
+                    <div class="form-group">
+                        <label>Логін</label>
+                        <input type="text" class="form-control" name="username" id="username">
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input type="password" class="form-control" name="password" id="password">
+                    </div>
+                    <div class="vcenter">
+                        <button type="submit" id="submit_btn" style="display: inline-block">Авторизуватися</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src='{{ path }}javascripts/jquery.validate.js'></script>
+<script src='{{ path }}javascripts/validation.js'></script>
+
+<div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Реєстрація</h4>
+            </div>
+            <div class="modal-body vcenter">
+
+                <form  id="registration-form" method="post" action="/users/register">
+                    <div class="form-group">
+                        <label>Пошта</label>
+                        <input type="text" class="form-control" name="email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Логін</label>
+                        <input type="text" class="form-control" name="username" id="username"  data-toggle="tooltip" title ="Логін повинен бути довжиною не менше ніж 3 символи та не більше ніж 24. Можна використовувати лише літери латинського алфавіту, цифри, крапку, дефіс та нижнє підкреслювання." data-delay = "show: 500, hide: 100">
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input type="password" class="form-control" name="passwordtwo" id="passwordtwo" data-toggle="tooltip" title = "Пароль повинен бути довжиною від 6 до 32 символів та містити хоча б одну цифру і одну букву.">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ще раз пароль</label>
+                        <input type="password" class="form-control" name="passwordthree" id="passwordthree" data-toggle="tooltip" title = "Ще раз введіть пароль.">
+                    </div>
+                    <div class="form-group">
+                        <label style="display: inline-block">Я погоджуюсь з правилами сайту</label>
+                        <input id="agree" class="checkbox" type="checkbox" name="agree" value="0" style="display: inline-block">
+                    </div>
+                    <div class="vcenter">
+                        <button type="submit" id="submit_btn">Зареєструватися</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
