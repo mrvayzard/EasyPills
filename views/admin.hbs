@@ -43,23 +43,27 @@
 
 <section id="analogs">
     <div class="container">
+    {{#each products}}
         <div class="list_item">
             <div class="row">
                 <div class="col-md-3" style="text-align: center;">
-                    <img src="images/item.jpg" class="analog_img">
+                    <a href="{{this.id}}" class="decoration_none">
+                        <img src="{{this.imagePath}}" class="analog_img">
+                    </a>
                     <div class="rating vcenter" class="item_rating">
                         <div class="productRate">
-                            <div style="width: 20%"></div>
+                            <div style="width: {{this.rating}}%"></div>
                         </div>
 
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <h2>Алтейочка</h2>
-                    <p><span>Діюча речовина:</span> алтей лікарняний</p>
-                    <p><span>Категорія:</span> ліки від кашлю</p>
-                    <p><span>Виробник:</span>  ВАТ "Херсонська фармацевтична фабрика"</p>
-                    <p><span>Склад:</span> настоянка алтею лікарського, масло календули, м'ята, розмарин</p>
+                    <a href="{{this.id}}" class="decoration_none">
+                        <h2>{{this.name}}</h2>
+                    </a>
+                    <p><span>Діюча речовина:</span> {{this.activeIngredients}}</p>
+                    <p><span>Виробник:</span> {{this.manufacturer}}</p>
+                    <p><span>Форма випуску:</span> {{this.form}}</p>
                 </div>
                 <div class="col-md-4 item_control">
                     <form action="/edit" method="post">
@@ -72,34 +76,6 @@
             </div>
             <hr class="l2">
         </div>
-        <div class="list_item">
-            <div class="row">
-                <div class="col-md-3" style="text-align: center;">
-                    <img src="images/item.jpg" class="analog_img">
-                    <div class="rating vcenter" class="item_rating">
-                        <div class="productRate">
-                            <div style="width: 20%"></div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <h2>Алтейочка</h2>
-                    <p><span>Діюча речовина:</span> алтей лікарняний</p>
-                    <p><span>Категорія:</span> ліки від кашлю</p>
-                    <p><span>Виробник:</span>  ВАТ "Херсонська фармацевтична фабрика"</p>
-                    <p><span>Склад:</span> настоянка алтею лікарського, масло календули, м'ята, розмарин</p>
-                </div>
-                <div class="col-md-4 item_control">
-                    <form action="/edit" method="post">
-                        <button type="submit" name="delete" value="ID">Редагувати</button>
-                    </form>
-                    <form action="/delete">
-                        <button type="submit" name="edit" value="ID">Видалити</button>
-                    </form>
-                </div>
-            </div>
-            <hr class="l2">
-        </div>
+    {{/each}}
     </div>
 </section>
