@@ -13,6 +13,11 @@ body {
     min-height: 100%;
 }
 
+body.modal-open {
+    overflow: inherit;
+    padding-right: 0 !important;
+}
+
 footer {
     height: 80px;
     width: 100%;
@@ -247,6 +252,35 @@ hr.l2 {
     padding-top: 20px;
 }
 
+.close {
+    width: 40px;
+}
+
+label.valid {
+    width: 24px;
+    height: 24px;
+    background: url(../images/valid.png) center center no-repeat;
+    display: inline-block;
+    text-indent: -9999px;
+}
+label.error {
+    font-weight: bold;
+    color: red;
+    padding: 2px 8px;
+    margin-top: 2px;
+    padding-right: 20px;
+}
+
+#registration-form {
+    width: 70%;
+}
+
+.form-control {
+    width: 90% !important;
+    vertical-align: sub;
+    display: inline-block;
+}
+
 .items_type {
     padding-left: 30px;
     padding-top: 20px;
@@ -265,6 +299,10 @@ hr.l2 {
     max-height: 250px;
 }
 
+#submit_btn
+{
+    width: inherit;
+}
 span {
     font-weight: bold;
 }
