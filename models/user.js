@@ -21,6 +21,12 @@ var UserSchema = mongoose.Schema({
         set: toLower,
         unique: true,
         index: true
+    },
+    admin: {
+        type: Boolean,
+        unique: false,
+        index: false,
+        required: false
     }
 });
 
