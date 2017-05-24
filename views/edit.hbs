@@ -3,13 +3,14 @@
         <div class="row vcenter">
             <h2 id="admin_header">Редагувати препарат</h2>
         </div>
-        <form action="/save" method="post">
+        <form action="/admin/save" method="post">
+            <input type="hidden" name="id" value="{{product._id}}">
             <div class="row field vcenter">
                 <div class="col-md-4 field1">
                     <h4>Назва:</h4>
                 </div>
                 <div class="col-md-8 field2">
-                    <input type="text" name="name" class="field_input" placeholder="Текст...">
+                    <input type="text" name="name" class="field_input" placeholder="Текст..." value="{{product.name}}">
                 </div>
             </div>
             <div class="row field vcenter">
@@ -17,7 +18,7 @@
                     <h4>Міжнародне найменування:</h4>
                 </div>
                 <div class="col-md-8 field2">
-                    <input type="text" name="international_name" class="field_input" placeholder="Текст...">
+                    <input type="text" name="international_name" class="field_input" placeholder="Текст..." value="{{product.internationalName}}">
                 </div>
             </div>
             <div class="row field vcenter">
@@ -25,7 +26,7 @@
                     <h4>Виробник:</h4>
                 </div>
                 <div class="col-md-8 field2">
-                    <input type="text" name="manufacturer" class="field_input" placeholder="Текст...">
+                    <input type="text" name="manufacturer" class="field_input" placeholder="Текст..." value="{{product.manufacturer}}">
                 </div>
             </div>
             <div class="row field vcenter">
@@ -33,7 +34,7 @@
                     <h4>Форма випуску:</h4>
                 </div>
                 <div class="col-md-8 field2">
-                    <input type="text" name="form" class="field_input" placeholder="Текст...">
+                    <input type="text" name="form" class="field_input" placeholder="Текст..." value="{{product.form}}">
                 </div>
             </div>
             <div class="row field vcenter">
@@ -41,7 +42,7 @@
                     <h4>Діючі речовини:</h4>
                 </div>
                 <div class="col-md-8 field2">
-                    <input type="text" name="active_substances" class="field_input" placeholder="Текст...">
+                    <textarea type="text" name="active_ingredients" class="field_input" placeholder="Текст...">{{product.activeIngredients}}</textarea>
                 </div>
             </div>
             <div class="row field vcenter">
@@ -49,7 +50,7 @@
                     <h4>Термін придатності:</h4>
                 </div>
                 <div class="col-md-8 field2">
-                    <input type="text" name="validity" class="field_input" placeholder="Текст...">
+                    <input type="text" name="validity" class="field_input" placeholder="Текст..." value="{{product.validity}}">
                 </div>
             </div>
             <div class="row field vcenter">
@@ -57,7 +58,7 @@
                     <h4>Код АТС:</h4>
                 </div>
                 <div class="col-md-8 field2">
-                    <input type="text" name="code_ats" class="field_input" placeholder="Текст...">
+                    <input type="text" name="code_ats" class="field_input" placeholder="Текст..." value="{{product.codeATS}}">
                 </div>
             </div>
             <div class="row field vcenter">
@@ -65,7 +66,7 @@
                     <h4>Зображення:</h4>
                 </div>
                 <div class="col-md-8 field2">
-                    <input type="file" name="image">
+                    <input type="file" name="image" value="{{product.imagePath}}">
                 </div>
             </div>
             <div class="row field">
@@ -73,12 +74,12 @@
                     <h4>Інструкція:</h4>
                 </div>
                 <div class="col-md-8 field2">
-                    <textarea style="width: 70%; height: 300px"></textarea>
+                    <textarea name="instruction" class="field_input">{{product.instructionUrl}}</textarea>
                 </div>
             </div>
             <div class="row field vcenter confirm_btns">
-                <button name="cancel">Скасувати</button>
-                <button name="save">Зберегти</button>
+                <a href="/admin"><button name="cancel" type="button">Скасувати</button></a>
+                <button name="save" type="submit">Зберегти</button>
             </div>
         </form>
     </div>

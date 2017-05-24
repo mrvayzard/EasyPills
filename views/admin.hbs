@@ -3,17 +3,17 @@
         <div class="row vcenter">
             <h2 id="admin_header" >Контроль препаратів</h2>
         </div>
-        <form action="#search_confirm">
-            <div class="row">
+            <div class="row vcenter">
                 <div class="col-md-4">
-                    <button id="add_new_btn" type="submit">Додати новий</button>
+                    <a href="/admin/add"><button id="add_new_btn">Додати новий</button></a>
                 </div>
                 <div class="col-md-8 confirm_btns">
-                    <input type="text" id="admin_search" class="search" placeholder="Пошук...">
-                    <button type="submit">Знайти</button>
+                    <form action="#search_confirm">
+                        <input type="text" id="admin_search" class="search" placeholder="Пошук...">
+                        <button type="submit">Знайти</button>
+                    </form>
                 </div>
             </div>
-        </form>
         <hr id="l3">
     </div>
 </section>
@@ -42,12 +42,12 @@
 <!--</section>-->
 
 <section id="analogs">
-    <div class="container">
+    <div class="container" id="data">
     {{#each products}}
         <div class="list_item">
             <div class="row">
                 <div class="col-md-3" style="text-align: center;">
-                    <a href="{{this.id}}" class="decoration_none">
+                    <a href="item/{{this.id}}" name="href1" class="decoration_none">
                         <img src="{{this.imagePath}}" class="analog_img">
                     </a>
                     <div class="rating vcenter" class="item_rating">
@@ -58,19 +58,19 @@
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <a href="{{this.id}}" class="decoration_none">
+                    <a href="item/{{this.id}}" name="href2" class="decoration_none">
                         <h2>{{this.name}}</h2>
                     </a>
-                    <p><span>Діюча речовина:</span> {{this.activeIngredients}}</p>
-                    <p><span>Виробник:</span> {{this.manufacturer}}</p>
-                    <p><span>Форма випуску:</span> {{this.form}}</p>
+                    <p class="active_substance"><span>Діюча речовина:</span> {{this.activeIngredients}}</p>
+                    <p class="manufacturer"><span>Виробник:</span> {{this.manufacturer}}</p>
+                    <p class="release_form"><span>Форма випуску:</span> {{this.form}}</p>
                 </div>
                 <div class="col-md-4 item_control">
-                    <form action="/edit" method="post">
-                        <button type="submit" name="delete" value="ID">Редагувати</button>
+                    <form action="admin/edit" method="post">
+                        <button type="submit" name="edit" value="{{this.id}}">Редагувати</button>
                     </form>
-                    <form action="/delete">
-                        <button type="submit" name="edit" value="ID">Видалити</button>
+                    <form action="admin/delete" method="post">
+                        <button type="submit" name="delete" value="{{this.id}}">Видалити</button>
                     </form>
                 </div>
             </div>
@@ -79,3 +79,79 @@
     {{/each}}
     </div>
 </section>
+
+<script>
+
+//
+//    $(function () {
+//
+//        $("#search").autocomplete({
+//            source: function (request, response) {
+//                $.ajax({
+//                    url: "/search_member",
+//                    type: "GET",
+//                    data: request,  // request is the value of search input
+//                    success: function (data) {
+//                        // Map response values to fiedl label and value
+//                        response($.map(data, function (el) {
+//                            return {
+//                                label: el.name.toLowerCase(),
+//                                value: el._id
+//                            };
+//                        }));
+//                    }
+//                });
+//            },
+//
+//            // The minimum number of characters a user must type before a search is performed.
+//            minLength: 3,
+//
+//            // set an onFocus event to show the result on input field when result is focused
+//            focus: function (event, ui) {
+//                this.value = ui.item.label;
+//                // Prevent other event from not being execute
+//                event.preventDefault();
+//            },
+//            select: function (event, ui) {
+//                // Prevent value from being put in the input:
+//                this.value = ui.item.label;
+//                // Set the id to the next input hidden field
+//                $(this).next("input").val(ui.item.value);
+//                // Prevent other event from not being execute
+//                event.preventDefault();
+//                // optionnal: submit the form after field has been filled up
+//                $('#search_form').submit();
+//            }
+//        });
+//
+//    });
+
+    $(window).scroll(function(request, response) {
+        if ($(window).scrollTop() >= ($(document).height() - $(window).height()) - 100) {
+            console.log("ddd");
+            $.ajax({
+                url: "/load",
+                type: "GET",
+                //data: {count: $("#items_container").find(".item").length},
+                success: function (data) {
+
+                    if (data.length != 0) {
+                        var container = $("#data");
+                        var template = $(".list_item").first().clone();
+                        for (var i = 0; i < 3; i++) {
+                            $(template).find("h2").text(data[i].name);
+                            $(template).find(".active_substance").html('<span>Діюча речовина:</span> ' + data[i].activeIngredients);
+                            $(template).find(".manufacturer").html('<span>Виробник:</span> ' + data[i].manufacturer);
+                            $(template).find(".release_form").html('<span>Форма випуску:</span> ' + data[i].form);
+                            $(template).find("[name=edit]").attr("value", data[i]._id);
+                            $(template).find("[name=delete]").attr("value",data[i]._id);
+                            console.log(data[i]._id);
+                            container.append(template);
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+</script>

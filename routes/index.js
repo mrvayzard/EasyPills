@@ -133,7 +133,7 @@ var regex = new RegExp();
 
 router.get('/load', function(req, res) {
 
-    console.log(page);
+    //console.log(page);
     var query = Product.find({name: regex}).sort({[sortMethod]:1}).skip(page).limit(3);
 
     // Execute query in a callback and return users list

@@ -668,3 +668,7 @@ h2.label {
 .confirm_btns {
     padding: 30px;
 }
+
+#login-form {
+    width: 70%;
+}

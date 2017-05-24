@@ -20,6 +20,7 @@ var schema = new Schema({
     codeATS: {type: String, required: false},
     dispensing: {type: String, required: false},
     validity: {type: String, required: true},
+    date: {type: Date, required: false}
 
 });
 

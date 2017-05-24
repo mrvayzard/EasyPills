@@ -113,7 +113,7 @@ router.get('/logout', function(req, res){
 
     req.flash('success_msg', 'Ви успішно вийшли.');
 
-    res.redirect('./');
+    res.redirect('../');
 });
 
 module.exports = router;
