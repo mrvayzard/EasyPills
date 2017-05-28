@@ -25,7 +25,7 @@
                     <div class="col-md-5 main_info">
                         <img src="{{product.imagePath}}" class="full_item_image">
                         <br>
-                        <span>Оцінка користувачів:</span>
+                        <span class="bold">Оцінка користувачів:</span>
                         <div class="rating vcenter" class="item_rating">
                             <div class="productRate">
                                 <div style="width: {{product.rating}}%"></div>
@@ -39,12 +39,12 @@
                         </form>
                     </div>
                     <div class="col-md-7 other_info">
-                        <p><span>Назва: </span>{{product.name}}</p>
-                        <p><span>Міжнародне найменування: </span>{{product.internationalName}}</p>
-                        <p><span>Виробник: </span>{{product.manufacturer}}</p>
-                        <p><span>Форма випуску: </span>{{product.form}}</p>
-                        <p><span>Діючі речовини: </span>{{product.activeIngredients}}</p>
-                        <p><span>Термін придатності: </span>{{product.validity}}</p>
+                        <p><span class="bold">Назва: </span>{{product.name}}</p>
+                        <p><span class="bold">Міжнародне найменування: </span>{{product.internationalName}}</p>
+                        <p><span class="bold">Виробник: </span>{{product.manufacturer}}</p>
+                        <p><span class="bold">Форма випуску: </span>{{product.form}}</p>
+                        <p><span class="bold">Діючі речовини: </span>{{product.activeIngredients}}</p>
+                        <p><span class="bold">Термін придатності: </span>{{product.validity}}</p>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,8 @@
                 </a>
                 <script type="text/javascript">
                     $(function () {
-                        $(".SecondDivID").load("../tempFiles/temp.html");
+                        if ("{{product.instructionUrl}}"!=="#")
+                            $(".SecondDivID").load("../tempFiles/temp.html");
                     })
                 </script>
                 <div class="SecondDivID"></div>
@@ -105,9 +106,9 @@
                                 <a href="{{this.id}}" class="decoration_none">
                                     <h2>{{this.name}}</h2>
                                 </a>
-                                <p><span>Діюча речовина:</span> {{this.activeIngredients}}</p>
-                                <p><span>Виробник:</span> {{this.manufacturer}}</p>
-                                <p><span>Форма випуску:</span> {{this.form}}</p>
+                                <p><span class="bold">Діюча речовина:</span> {{this.activeIngredients}}</p>
+                                <p><span class="bold">Виробник:</span> {{this.manufacturer}}</p>
+                                <p><span class="bold">Форма випуску:</span> {{this.form}}</p>
                             </div>
                             <div class="col-md-4 price_info">
                                 <h2 class="price_h">Ціна</h2>

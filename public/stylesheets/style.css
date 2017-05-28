@@ -303,8 +303,8 @@ label.error {
 {
     width: inherit;
 }
-span {
-    color: #222222;
+span.bold{
+    font-weight: bold;
 }
 
 .item {

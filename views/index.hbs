@@ -75,10 +75,10 @@
                                     {{this.rating}}
                                 </div>
                             </div>
-                            <p class="active_substance"><span>Діюча речовина:</span> {{this.activeIngredients}}</p>
-                            <p class="manufacturer"><span>Виробник:</span> {{this.manufacturer}}</p>
+                            <p class="active_substance"><span class="bold">Діюча речовина:</span> {{this.activeIngredients}}</p>
+                            <p class="manufacturer"><span class="bold">Виробник:</span> {{this.manufacturer}}</p>
                             <div class="price">{{this.price}}0 грн</div>
-                            <p>Всього пропозицій: <span>{{this.offerCount}}0</span></p>
+                            <p>Всього пропозицій: <span class="bold">{{this.offerCount}}0</span></p>
                         </div>
                     </div>
                 {{/each}}
@@ -182,8 +182,8 @@
                             for (var i = 0; i < 3; i++) {
                                 var template = $(".col-md-4").first().clone();
                                 $(template).find("h2").text(data[i].name);
-                                $(template).find(".active_substance").html('<span>Діюча речовина:</span> ' + data[i].activeIngredients);
-                                $(template).find(".manufacturer").html('<span>Виробник:</span> ' + data[i].manufacturer);
+                                $(template).find(".active_substance").html('<span class="bold">Діюча речовина:</span> ' + data[i].activeIngredients);
+                                $(template).find(".manufacturer").html('<span class="bold">Виробник:</span> ' + data[i].manufacturer);
                                 $(template).find("[name=href1]").attr("href", "/item/" + data[i]._id);
                                 $(template).find("[name=href2]").attr("href", "/item/" + data[i]._id);
                                 row.append(template);

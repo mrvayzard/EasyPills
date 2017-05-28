@@ -61,9 +61,9 @@
                     <a href="item/{{this.id}}" name="href2" class="decoration_none">
                         <h2>{{this.name}}</h2>
                     </a>
-                    <p class="active_substance"><span>Діюча речовина:</span> {{this.activeIngredients}}</p>
-                    <p class="manufacturer"><span>Виробник:</span> {{this.manufacturer}}</p>
-                    <p class="release_form"><span>Форма випуску:</span> {{this.form}}</p>
+                    <p class="active_substance"><span class="bold">Діюча речовина:</span> {{this.activeIngredients}}</p>
+                    <p class="manufacturer"><span class="bold">Виробник:</span> {{this.manufacturer}}</p>
+                    <p class="release_form"><span class="bold">Форма випуску:</span> {{this.form}}</p>
                 </div>
                 <div class="col-md-4 item_control">
                     <form action="admin/edit" method="post">
@@ -140,9 +140,9 @@
                         var template = $(".list_item").first().clone();
                         for (var i = 0; i < 3; i++) {
                             $(template).find("h2").text(data[i].name);
-                            $(template).find(".active_substance").html('<span>Діюча речовина:</span> ' + data[i].activeIngredients);
-                            $(template).find(".manufacturer").html('<span>Виробник:</span> ' + data[i].manufacturer);
-                            $(template).find(".release_form").html('<span>Форма випуску:</span> ' + data[i].form);
+                            $(template).find(".active_substance").html('<span class="bold">Діюча речовина:</span> ' + data[i].activeIngredients);
+                            $(template).find(".manufacturer").html('<span class="bold">Виробник:</span> ' + data[i].manufacturer);
+                            $(template).find(".release_form").html('<span class="bold">Форма випуску:</span> ' + data[i].form);
                             $(template).find("[name=edit]").attr("value", data[i]._id);
                             $(template).find("[name=delete]").attr("value",data[i]._id);
                             console.log(data[i]._id);
