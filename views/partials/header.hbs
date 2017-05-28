@@ -12,7 +12,11 @@
             </div>
             <div class="col-sm-6 login">
                 {{#if user}}
-                   <a href="/admin"> <button id="cabinet">Кабінет</button></a>
+                    {{#if user.admin}}
+                        <a href="/admin"> <button id="cabinet">Кабінет</button></a>
+                    {{else}}
+                        <a href="/cabinet"> <button id="cabinet">Кабінет</button></a>
+                    {{/if}}
                     <a href="/users/logout"> <button id="logout">Вийти</button></a>
                 {{else}}
                     <button data-toggle="modal" id="sign_in" href="#modalAuth" >Вхід</button>

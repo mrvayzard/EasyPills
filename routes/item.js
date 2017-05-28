@@ -5,6 +5,8 @@
 var express = require('express');
 var router = express.Router();
 var Product = require('../models/product');
+var mhtToHtml = require('../mhtToHtml');
+
 
 var app = express();
 
@@ -38,6 +40,9 @@ router.get('/:id', function(req, res, next) {
         Product.find( {codeATS: product.codeATS, registration: { $ne: product.registration } }, function (err, analogs) {
             if(product.codeATS === '')
                 analogs = null;
+            if (product.instructionUrl!=="#")
+            var instruction = mhtToHtml.convertToFile(product.instructionUrl, '../tempFiles/temp.html');
+            //var instruction = mhtToHtml.convertToString();
             res.render('item', { title: product.name, product: product, path: '../', analogs: analogs});
         });
     });

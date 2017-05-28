@@ -103,10 +103,14 @@ passport.deserializeUser(function(id, done) {
 });
 
 router.post('/login',
-    passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
+    passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login_failed',failureFlash: true}),
     function(req, res) {
-        res.redirect('./');
+        res.redirect('../');
     });
+
+router.get('/login_failed', function (req, res, next) {
+    res.render('cabinet', {error: "Невірний логін або пароль"});
+})
 
 router.get('/logout', function(req, res){
     req.logout();

@@ -15,12 +15,12 @@ var fs = require('fs');
 var products = [];
 var mainUrls = [];
 var pageUrls = [];
-var itemUrls = []
+var itemUrls = [];
 var urlAddress = 'http://drlz.com.ua/ibp/ddsite.nsf';
 
 var getMainUrls = function () {
 
-    for (var i=0; i<6; i++) {
+    for (var i=0; i<5; i++) {
         for (var j=1; j<10; j++) {
             mainUrls.push('http://drlz.com.ua/ibp/ddsite.nsf/all/shlist?opendocument&sym=20' + (12+ i) + 0 + j);
         }
@@ -111,7 +111,7 @@ cr1.on('drain',function(){
                         instructionURL = 'http://drlz.com.ua/ibp' + instructionURL.substring(5);
                     else instructionURL = '#';
 
-                    //console.log(instructionURL);
+                    console.log(instructionURL);
 
                     $('tr').each(function (val, index) {
                         temp=$(this).text();
