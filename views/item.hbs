@@ -63,7 +63,6 @@
                 <div class="SecondDivID"></div>
             </div>
             <div id="buy" class="tab-pane fade">
-                <p>Дана функція знаходиться в стані реалізації. Вибачте за незручності!</p>
             </div>
             <div id="analogs" class="tab-pane fade">
                 <div class="sort">
@@ -123,3 +122,18 @@
         </div>
     </div>
 </section>
+
+<script type="text/javascript">
+    $(function () {
+        var encodedStr = "{{price}}";
+
+        var parser = new DOMParser;
+        var dom = parser.parseFromString(
+                '<!doctype html><body>' + encodedStr,
+                'text/html');
+        var decodedString = dom.body.textContent;
+
+        console.log(decodedString);
+        $('#buy').html(decodedString);
+    })
+</script>
