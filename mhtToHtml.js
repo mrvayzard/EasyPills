@@ -48,13 +48,10 @@ module.exports = {
         var count =0;
         savePath = 'public/tempFiles/temp.html';
         download(source, options, function(){
-            console.log('done');
             fs.writeFile(savePath, "", function () {
                 fs.readFile('public/tempFiles/temp.mht', "utf8", function(err, data) {
                     data.toString().split("=\r\n").forEach(function (temp) {
-                        console.log(temp);
                         temp = temp.replace(/=3D/g, "=").replace(/<a/g, "<span").replace(/a>/g, "span>");
-                        console.log(temp);
                         if(temp.toString().indexOf('<html') > -1)
                             fs.appendFileSync(savePath, temp.toString().substring(temp.toString().indexOf('<html')));
                         else if(temp.toString().indexOf('html>') > -1 ) {
@@ -63,13 +60,13 @@ module.exports = {
                         }
 
                         else if(temp.toString().indexOf('<style>') > -1 && count<1) {
-                            fs.appendFileSync(savePath, temp.toString().substring(0, temp.toString().indexOf('<style>')));
+                            //fs.appendFileSync(savePath, temp.toString().substring(0, temp.toString().indexOf('<style>')));
                             style = false;
                         }
                         else if(temp.toString().indexOf('</style>') > -1 && count<1) {
                             fs.appendFileSync(savePath, temp.toString().substring(temp.toString().indexOf('</style>') + 5));
-                            style = true;
                             count++;
+                            style = true;
                         }
 
                         else if (flag && style) fs.appendFileSync(savePath, temp);

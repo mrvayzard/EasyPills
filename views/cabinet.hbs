@@ -1,1 +1,77 @@
-<div class="container" style="height: 1600px; padding-top: 200px "><h2>{{error}}</h2></div>
+<section id="add_and_search">
+    <div class="container text-center">
+        <div class="row vcenter">
+            <h2 id="admin_header" >Збережені препарати</h2>
+        </div>
+        <hr id="l3">
+    </div>
+</section>
+
+<section id="favourite">
+    <div class="container" id="data">
+        {{#each products}}
+            <div class="list_item">
+                <div class="row">
+                    <div class="col-md-3" style="text-align: center;">
+                        <a href="item/{{this.id}}" name="href1" class="decoration_none">
+                            <img src="{{this.imagePath}}" class="analog_img">
+                        </a>
+                        <div class="rating vcenter" class="item_rating">
+                            <div class="productRate">
+                                <div style="width: {{this.rating}}%"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <a href="item/{{this.id}}" name="href2" class="decoration_none">
+                            <h2>{{this.name}}</h2>
+                        </a>
+                        <p class="active_substance"><span class="bold">Діюча речовина:</span> {{this.activeIngredients}}</p>
+                        <p class="manufacturer"><span class="bold">Виробник:</span> {{this.manufacturer}}</p>
+                        <p class="release_form"><span class="bold">Форма випуску:</span> {{this.form}}</p>
+                    </div>
+                    <div class="col-md-4 item_control">
+                        <form action="admin/edit" method="post">
+                            <button type="submit" name="edit" value="{{this.id}}">Редагувати</button>
+                        </form>
+                        <form action="admin/delete" method="post">
+                            <button type="submit" name="delete" value="{{this.id}}">Видалити</button>
+                        </form>
+                    </div>
+                </div>
+                <hr class="l2">
+            </div>
+        {{/each}}
+    </div>
+</section>
+
+<script>
+    $(window).scroll(function(request, response) {
+        if ($(window).scrollTop() >= ($(document).height() - $(window).height()) - 100) {
+            console.log("ddd");
+            $.ajax({
+                url: "/load",
+                type: "GET",
+                //data: {count: $("#items_container").find(".item").length},
+                success: function (data) {
+
+                    if (data.length != 0) {
+                        var container = $("#data");
+                        var template = $(".list_item").first().clone();
+                        for (var i = 0; i < 3; i++) {
+                            $(template).find("h2").text(data[i].name);
+                            $(template).find(".active_substance").html('<span class="bold">Діюча речовина:</span> ' + data[i].activeIngredients);
+                            $(template).find(".manufacturer").html('<span class="bold">Виробник:</span> ' + data[i].manufacturer);
+                            $(template).find(".release_form").html('<span class="bold">Форма випуску:</span> ' + data[i].form);
+                            $(template).find("[name=edit]").attr("value", data[i]._id);
+                            $(template).find("[name=delete]").attr("value",data[i]._id);
+                            console.log(data[i]._id);
+                            container.append(template);
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>

@@ -672,3 +672,7 @@ h2.label {
 #login-form {
     width: 70%;
 }
+
+section#favourite {
+    min-height: 1000px;
+}
