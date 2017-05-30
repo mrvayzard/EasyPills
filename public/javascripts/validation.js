@@ -42,7 +42,7 @@ $(document).ready(function(){
 
     $('#registration-form').validate({
         rules: {
-            username: {
+            usernamereg: {
                 minlength: 3,
                 maxlength: 24,
                 specialChars: true,
@@ -51,7 +51,7 @@ $(document).ready(function(){
                     url: "/users/check_login",
                     type: "post",
                     data: {
-                        'username': function () { return $('#username').val();
+                        'username': function () { return $('#usernamereg').val();
                         }
                     }
                 }

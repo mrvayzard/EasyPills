@@ -12,6 +12,7 @@
             </div>
             <div class="col-sm-6 login">
                 {{#if user}}
+                    <p style="display:initial; color: #11cc92; margin-right: 40px;">Вітаємо, {{user.username}}</p>
                     {{#if user.admin}}
                         <a href="/admin"> <button id="cabinet">Кабінет</button></a>
                     {{else}}
@@ -36,6 +37,17 @@
                 <h4 class="modal-title">Авторизація</h4>
             </div>
             <div class="modal-body vcenter">
+                {{#if success_msg}}
+                    <div class="alert alert-success">{{success_msg}}</div>
+                {{/if}}
+
+                {{#if error_msg}}
+                    <div class="alert alert-danger">{{error_msg}}</div>
+                {{/if}}
+
+                {{#if error}}
+                    <div class="alert alert-danger">{{error}}</div>
+                {{/if}}
                 <form  id="login-form" method="post" action="/users/login">
                     <div class="form-group">
                         <label>Логін</label>
@@ -65,7 +77,17 @@
                 <h4 class="modal-title">Реєстрація</h4>
             </div>
             <div class="modal-body vcenter">
+                {{#if success_msg}}
+                    <div class="alert alert-success">{{success_msg}}</div>
+                {{/if}}
 
+                {{#if error_msg}}
+                    <div class="alert alert-danger">{{error_msg}}</div>
+                {{/if}}
+
+                {{#if error}}
+                    <div class="alert alert-danger">{{error}}</div>
+                {{/if}}
                 <form  id="registration-form" method="post" action="/users/register">
                     <div class="form-group">
                         <label>Пошта</label>
@@ -73,7 +95,7 @@
                     </div>
                     <div class="form-group">
                         <label>Логін</label>
-                        <input type="text" class="form-control" name="username" id="username"  data-toggle="tooltip" title ="Логін повинен бути довжиною не менше ніж 3 символи та не більше ніж 24. Можна використовувати лише літери латинського алфавіту, цифри, крапку, дефіс та нижнє підкреслювання." data-delay = "show: 500, hide: 100">
+                        <input type="text" class="form-control" name="usernamereg" id="usernamereg"  data-toggle="tooltip" title ="Логін повинен бути довжиною не менше ніж 3 символи та не більше ніж 24. Можна використовувати лише літери латинського алфавіту, цифри, крапку, дефіс та нижнє підкреслювання." data-delay = "show: 500, hide: 100">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
@@ -85,7 +107,7 @@
                         <input type="password" class="form-control" name="passwordthree" id="passwordthree" data-toggle="tooltip" title = "Ще раз введіть пароль.">
                     </div>
                     <div class="form-group">
-                        <label style="display: inline-block">Я погоджуюсь з правилами сайту</label>
+                        <label style="display: inline-block">Я погоджуюсь з <a href="/rules">правилами сайту</a></label>
                         <input id="agree" class="checkbox" type="checkbox" name="agree" value="0" style="display: inline-block">
                     </div>
                     <div class="vcenter">

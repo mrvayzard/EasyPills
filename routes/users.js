@@ -40,14 +40,14 @@ router.post('/check_login', function(req, res){
 // Register User
 router.post('/register', function(req, res){
     var email = req.body.email;
-    var username = req.body.username;
+    var username = req.body.usernamereg;
     var password = req.body.passwordtwo;
     var password2 = req.body.passwordthree;
 
     // Validation
     req.checkBody('email', 'Введіть пошту').notEmpty();
     req.checkBody('email', 'Введіть коректну пошту').isEmail();
-    req.checkBody('username', 'Введіть логін').notEmpty();
+    req.checkBody('usernamereg', 'Введіть логін').notEmpty();
     req.checkBody('passwordtwo', 'Введіть пароль').notEmpty();
     req.checkBody('passwordthree', 'Правильно введіть повторний пароль').equals(req.body.passwordtwo);
 
@@ -69,7 +69,7 @@ router.post('/register', function(req, res){
             console.log(user);
         });
 
-        res.render('register', {path: '../'});
+        res.render('imessage', {path: '../', imessage: 'Ви успішно зареєстровані!'});
     }
 });
 
@@ -105,17 +105,14 @@ passport.deserializeUser(function(id, done) {
 router.post('/login',
     passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login_failed',failureFlash: true}),
     function(req, res) {
-        res.redirect('../');
     });
 
 router.get('/login_failed', function (req, res, next) {
-    res.render('cabinet', {error: "Невірний логін або пароль"});
+    res.render('imessage', {path: '../', imessage: 'Перевірте коректність вводу логіну та паролю!'});
 })
 
 router.get('/logout', function(req, res){
     req.logout();
-
-    req.flash('success_msg', 'Ви успішно вийшли.');
 
     res.redirect('../');
 });

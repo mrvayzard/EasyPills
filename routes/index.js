@@ -49,6 +49,10 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/rules', function(req, res, next) {
+    res.render('rules',{path: '../'});
+});
+
 router.post('/search', function (req, res, next) {
     page = 15;
     var searchValue = req.param('search_value', null);

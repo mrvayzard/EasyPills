@@ -6,7 +6,15 @@ var router = express.Router();
 var Product = require('../models/product');
 var ObjectId = require('mongodb').ObjectID;
 
-router.get('/', function(req, res, next) {
+function ensureAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    } else {
+        res.redirect('/no-permission');
+    }
+}
+
+router.get('/',ensureAuthenticated, function(req, res, next) {
     page = 15;
     var query = Product.find().sort({"date" : -1}).limit(10);
     query.exec(function (err, items) {
@@ -14,24 +22,24 @@ router.get('/', function(req, res, next) {
     })
 });
 
-router.get('/add', function (req, res, next) {
+router.get('/add',ensureAuthenticated, function (req, res, next) {
     res.render('edit', {path: '/../'});
 });
 
-router.post('/edit', function (req, res, next) {
+router.post('/edit',ensureAuthenticated, function (req, res, next) {
     Product.findById(req.param('edit'), function (err, product) {
         res.render('edit', {path: '/../', product: product})
     });
 });
 
-router.post('/delete', function (req, res, next) {
+router.post('/delete',ensureAuthenticated, function (req, res, next) {
     console.log(req.param("delete"));
     Product.remove({"_id": ObjectId((req.param("delete")).toString())}, function () {
         res.redirect('/admin');
     });
 });
 
-router.post('/save', function (req, res, next) {
+router.post('/save',ensureAuthenticated, function (req, res, next) {
 
     Product.findById(req.body.id, function (err, product) {
         if (product!==undefined) {
@@ -76,7 +84,7 @@ router.post('/save', function (req, res, next) {
 
 var page = 10;
 
-router.get('/load', function(req, res) {
+router.get('/load', ensureAuthenticated,function(req, res) {
 
     console.log(page);
     var query = Product.find({name: regex}).sort({"date" : -1}).skip(page).limit(3);
