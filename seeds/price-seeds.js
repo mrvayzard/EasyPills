@@ -16,62 +16,67 @@ getBody(function (pr) {
 
 function getBody(callback) {
     Product.find(function (err, docs) {
-        docs.forEach(function (doc) {
-            console.log(doc.name);
-            requestify.request('http://medbrowse.com.ua/search', {
-                method: 'POST',
-                body: {
-                    searchstr: doc.name,
-                    geo_trans: '',
-                    geo_district: '',
-                    geo_city: '187'
-                },
-                cookies: {
-                    lang: 'UA',
-                    language: 'UA'
-                },
-                dataType: 'form-url-encoded'
-            }).fail(function(response) {
-                // get the response body
-                var link = response.getHeader('location');
-                requestify.get(link, {cookies: {
-                    lang: 'UA',
-                    language: 'UA'
-                }}).then(function(response) {
-                    var body = response.body;
+        docs.forEach(function (doc, i) {
+            setTimeout(function () {
+                console.log(i);
+                requestify.request('http://medbrowse.com.ua/search', {
+                    method: 'POST',
+                    body: {
+                        searchstr: doc.name,
+                        geo_trans: '',
+                        geo_district: '',
+                        geo_city: '187'
+                    },
+                    cookies: {
+                        lang: 'UA',
+                        language: 'UA'
+                    },
+                    header: {
+                        'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+                    },
+                    dataType: 'form-url-encoded'
+                }).fail(function(response) {
+                    // get the response body
+                    var link = response.getHeader('location');
+                    requestify.get(link, {cookies: {
+                        lang: 'UA',
+                        language: 'UA'
+                    }}).then(function(response) {
+                        var body = response.body;
 
-                    var $ = cheerio.load(body);
+                        var $ = cheerio.load(body);
 
-                    var html = "";
-                    $('h3').each(function(j, itm){
-                        $(this).find('a').removeAttr('href');
+                        var html = "";
+                        $('h3').each(function(j, itm){
+                            $(this).find('a').removeAttr('href');
+                        });
+
+
+                        $('.alt-value').remove();
+                        $('.responsive-secondary').remove();
+                        $('.turnable-first').remove();
+                        $('.local').remove();
+                        $('.map').remove();
+                        $('.local-u').remove();
+                        var prices = [];
+                        var b = $('.apteka').each(function(i, elem) {
+                            if (i >= 10)
+                                return;
+                            html += $(this).html();
+                            $(this).find('var').each(function(j, itm){prices.push($(this).text())});
+                        });
+
+                        var pr = new Price({
+                            html: html,
+                            priceArray: prices,
+                            product: doc._id
+                        });
+
+                        pr.save();
+                        callback(pr.product);
                     });
-
-
-                    $('.alt-value').remove();
-                    $('.responsive-secondary').remove();
-                    $('.turnable-first').remove();
-                    $('.local').remove();
-                    $('.map').remove();
-                    $('.local-u').remove();
-                    var prices = [];
-                    var b = $('.apteka').each(function(i, elem) {
-                        if (i >= 10)
-                            return;
-                        html += $(this).html();
-                        $(this).find('var').each(function(j, itm){prices.push($(this).text())});
-                    });
-
-                    var pr = new Price({
-                        html: html,
-                        priceArray: prices,
-                        product: doc._id
-                    });
-
-                    pr.save();
-                    callback(pr);
-                });
-            });
+                })
+            }, 60000*i);
         });
-    }).limit(3);
+    });
 }
