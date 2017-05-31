@@ -158,7 +158,6 @@
 
 
         var rating;
-        var was = false;
 
         jQuery(".productRate").mousemove(
 
@@ -190,7 +189,6 @@
 
         jQuery(".productRate").click(
             function () {
-                if (!was) {
                     $.ajax({
                         url: "/item/rating",
                         type: "POST",
@@ -203,7 +201,6 @@
                             was = true;
                         }
                     })
-                }
             });
         });
     {{/if}}

@@ -7,6 +7,7 @@ var router = express.Router();
 var Product = require('../models/product');
 var Bookmark = require('../models/bookmark');
 var Price = require('../models/price');
+var Rating = require('../models/rating');
 var mhtToHtml = require('../mhtToHtml');
 ObjectId = require('mongodb').ObjectID;
 
@@ -82,22 +83,79 @@ router.post('/delete/:id', ensureAuthenticated, function (req, res) {
 });
 
 router.post('/rating', ensureAuthenticated, function (req, res) {
-    Product.findOne({_id: ObjectId(req.body.id)}, function (err, doc) {
-        var ratingCount = doc.ratingCount+1;
-        var rating = ((doc.rating*(ratingCount-1)) + Number(req.body.rating))/ratingCount;
-        Product.update(
-            { _id: ObjectId(req.body.id) },
-            { $set:
+    // Product.findOne({_id: ObjectId(req.body.id)}, function (err, doc) {
+    //     var ratingCount = doc.ratingCount+1;
+    //     var rating = ((doc.rating*(ratingCount-1)) + Number(req.body.rating))/ratingCount;
+    //     Product.update(
+    //         { _id: ObjectId(req.body.id) },
+    //         { $set:
+    //             {
+    //                 rating: rating,
+    //                 ratingCount: ratingCount
+    //             }
+    //         }
+    //         ,function () {
+    //             console.log("Done");
+    //             res.send(rating.toString());
+    //         })
+    // });
+
+    Rating.findOne({product: ObjectId(req.body.id), user: req.user._id}, function (err, r) {
+        if (r === null) {
+            console.log("add");
+            var newRating = new Rating({
+                user: req.user._id,
+                product: ObjectId(req.body.id),
+                value: Number(req.body.rating)
+            });
+            newRating.save(function () {
+                Product.findOne({_id: ObjectId(req.body.id)}, function (err, doc) {
+                    var ratingCount = doc.ratingCount + 1;
+                    var rating = ((doc.rating * (ratingCount - 1)) + Number(req.body.rating)) / ratingCount;
+                    Product.update(
+                        {_id: ObjectId(req.body.id)},
+                        {
+                            $set: {
+                                rating: rating,
+                                ratingCount: ratingCount
+                            }
+                        }
+                        , function () {
+                            res.send(rating.toString());
+                        }
+                    )
+                });
+            });
+        }
+        else {
+            console.log("edit");
+            Rating.update(
+                {product: ObjectId(req.body.id), user: req.user._id},
                 {
-                    rating: rating,
-                    ratingCount: ratingCount
+                    $set: {
+                        value: Number(req.body.rating)
+                    }
                 }
-            }
-            ,function () {
-                console.log("Done");
-                res.send(rating.toString());
-            })
-    });
+                , function () {
+                    Product.findOne({_id: ObjectId(req.body.id)}, function (err, doc) {
+                        var ratingCount = doc.ratingCount;
+                        var rating = ((doc.rating*ratingCount-r.value) + Number(req.body.rating))/ratingCount;
+                        Product.update(
+                            {_id: ObjectId(req.body.id)},
+                            {
+                                $set: {
+                                    rating: rating,
+                                }
+                            }
+                            , function () {
+                                res.send(rating.toString());
+                            }
+                        )
+                    });
+                }
+            )
+        }
+    })
 });
 
 
