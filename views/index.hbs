@@ -38,9 +38,9 @@
                 </div>
                 <div class="col-md-2">
                     <h4>Діапазон цін: </h4>
-                    <input type="text" id="min_price" name="min">
+                    <input type="text" id="min_price" name="min" value="0">
                     -
-                    <input type="text" id="max_price" name="max">
+                    <input type="text" id="max_price" name="max" value="9999">
                 </div>
                 <div class="col-md-2">
                     <button id="set_param" type="submit">ОК</button>
@@ -75,10 +75,10 @@
                                     {{this.rating}}
                                 </div>
                             </div>
-                            <p class="active_substance"><span class="bold">Діюча речовина:</span> {{this.activeIngredients}}</p>
-                            <p class="manufacturer"><span class="bold">Виробник:</span> {{this.manufacturer}}</p>
+                            <p class="active_substance cuted"><span class="bold">Діюча речовина:</span> {{this.activeIngredients}}</p>
+                            <p class="manufacturer cuted"><span class="bold">Виробник:</span> {{this.manufacturer}}</p>
                             <div class="price">{{this.price}} грн</div>
-                            <p>Всього пропозицій: <span class="bold">{{this.offerCount}}0</span></p>
+                            <!--<p>Всього пропозицій: <span class="bold">{{this.offerCount}}0</span></p>-->
                         </div>
                     </div>
                 {{/each}}
