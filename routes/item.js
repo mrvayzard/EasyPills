@@ -42,8 +42,13 @@ router.get('/:id', function(req, res, next) {
                         newPrice = "<p>Недоступно</p>";
                     else
                         newPrice = price.html.replace(/\r\n|\n|\r/g, '');
-                    var added = false;
-                    Bookmark.findOne({item: ObjectId(productId)}, function (err, doc) {
+
+                    try {
+                        var user = getUserId(req,res,next);
+                        var added = false;
+                    }
+                    catch(err) {console.log("Not User")}
+                    Bookmark.findOne({item: ObjectId(productId), user: user}, function (err, doc) {
                         if (doc !== null)
                             added = true;
                         res.render('item', {
