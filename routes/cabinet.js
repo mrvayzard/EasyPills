@@ -21,13 +21,19 @@ router.get('/', ensureAuthenticated, function(req, res) {
     //console.log(req.user._id);
     Bookmark.find( {user: req.user._id}, function (err, items){
         var p = [];
-        items.forEach(function (item) {
+        var counter = 0;
+        items.forEach(function (item, index) {
             Product.findOne( {_id: item.item}, function (err2, doc) {
                 p.push(doc);
+                counter++;
+                if (counter===items.length-1)
+                {
+                    p.sort();
+                    res.render('cabinet', {path: '../', products: p});
+                }
             });
         });
-        p.sort();
-        res.render('cabinet', {path: '../', products: p});
+
     })
 });
 
