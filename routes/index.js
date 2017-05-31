@@ -79,7 +79,7 @@ router.post('/search', function (req, res, next) {
     })
 })
 
-function compareName(a,b) {
+function compareName(a, b) {
     if (a.name.toLowerCase() < b.name.toLowerCase())
         return -1;
     if (a.name.toLowerCase() > b.name.toLowerCase())
@@ -87,12 +87,19 @@ function compareName(a,b) {
     return 0;
 }
 
-function comparePrice(a,b) {
-    if (a.price < b.price)
-        return -1;
-    if (a.price > b.price)
+function comparePrice(a, b) {
+    if(a.price === undefined && b.price === undefined){
+        return 0;
+    }
+    else if(a.price === undefined)
         return 1;
-    return 0;
+    else if(b.price === undefined)
+        return -1;
+    else {
+        var splitA = a.price.split(' . . . ');
+        var splitB = b.price.split(' . . . ');
+        return Number(splitA[0])-Number(splitB[0]);
+    }
 }
 
 function compareRating(a,b) {

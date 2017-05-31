@@ -103,18 +103,22 @@ passport.deserializeUser(function(id, done) {
 });
 
 router.post('/login',
-    passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login_failed',failureFlash: true}),
+    passport.authenticate('local', {successRedirect:'/users/login_success', failureRedirect:'/users/login_failed',failureFlash: true}),
     function(req, res) {
     });
 
 router.get('/login_failed', function (req, res, next) {
     res.render('imessage', {path: '../', imessage: 'Перевірте коректність вводу логіну та паролю!'});
+});
+
+router.get('/login_success', function (req, res, next) {
+    res.redirect(req.get('referer'));
 })
 
 router.get('/logout', function(req, res){
     req.logout();
 
-    res.redirect('../');
+    res.redirect(req.get('referer'));
 });
 
 module.exports = router;

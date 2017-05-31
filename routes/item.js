@@ -29,25 +29,36 @@ router.get('/:id', function(req, res, next) {
     var productId = req.params.id;
 
     Product.findById(productId, function (err, prod) {
-        Price.findOne( {product: prod._id}, function (err, price) {
-            Product.find( {codeATS: prod.codeATS, registration: { $ne: prod.registration } }, function (err, analogs) {
-                if(prod.codeATS === '')
-                    analogs = null;
-                if (prod.instructionUrl!=="#")
-                    mhtToHtml.convertToFile(prod.instructionUrl, '../tempFiles/temp.html');
-                var newPrice;
-                if (price===null)
-                    newPrice = "<p>Недоступно</p>";
-                else
-                    newPrice = price.html.replace(/\r\n|\n|\r/g, '');
-                var added = false;
-                Bookmark.findOne({item: ObjectId(productId)}, function (err, doc) {
-                    if (doc!==null)
-                        added = true;
-                    res.render('item', { title: prod.name, product: prod, path: '../', analogs: analogs, price: newPrice, added: added });
+        if(prod!==undefined && prod!=null) {
+            Price.findOne({product: prod._id}, function (err, price) {
+                Product.find({codeATS: prod.codeATS, registration: {$ne: prod.registration}}, function (err, analogs) {
+                    if (prod.codeATS === '')
+                        analogs = null;
+                    if (prod.instructionUrl !== "#")
+                        mhtToHtml.convertToFile(prod.instructionUrl, '../tempFiles/temp.html');
+                    var newPrice;
+                    if (price === null)
+                        newPrice = "<p>Недоступно</p>";
+                    else
+                        newPrice = price.html.replace(/\r\n|\n|\r/g, '');
+                    var added = false;
+                    Bookmark.findOne({item: ObjectId(productId)}, function (err, doc) {
+                        if (doc !== null)
+                            added = true;
+                        res.render('item', {
+                            title: prod.name,
+                            product: prod,
+                            path: '../',
+                            analogs: analogs,
+                            price: newPrice,
+                            added: added
+                        });
+                    });
                 });
             });
-        });
+        }
+        else
+            res.redirect('../404');
     });
 });
 

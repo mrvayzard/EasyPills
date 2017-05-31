@@ -77,7 +77,7 @@
                             </div>
                             <p class="active_substance"><span class="bold">Діюча речовина:</span> {{this.activeIngredients}}</p>
                             <p class="manufacturer"><span class="bold">Виробник:</span> {{this.manufacturer}}</p>
-                            <div class="price">{{this.price}}0 грн</div>
+                            <div class="price">{{this.price}} грн</div>
                             <p>Всього пропозицій: <span class="bold">{{this.offerCount}}0</span></p>
                         </div>
                     </div>
@@ -186,6 +186,9 @@
                                 $(template).find(".manufacturer").html('<span class="bold">Виробник:</span> ' + data[i].manufacturer);
                                 $(template).find("[name=href1]").attr("href", "/item/" + data[i]._id);
                                 $(template).find("[name=href2]").attr("href", "/item/" + data[i]._id);
+                                if (data[i].price===undefined)
+                                    $(template).find(".price").html("- грн");
+                                else $(template).find(".price").html(data[i].price + " грн");
                                 row.append(template);
                             }
                             $("#items_container").append(row);
