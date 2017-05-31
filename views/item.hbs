@@ -28,7 +28,7 @@
                         <span class="bold">Оцінка користувачів:</span>
                         <div class="rating vcenter" class="item_rating">
                             <div class="productRate">
-                                <div style="width: {{product.rating}}%"></div>
+                                <div style="width: calc({{product.rating}}*20%)"></div>
                             </div>
                             <div class="rating_count">
                                 {{product.rating}}
@@ -142,5 +142,69 @@
 
         if(decodedString!==null)
             $('#buy').html(decodedString);
-    })
+    });
+
+    {{#if user}}
+
+    jQuery(document).ready(function() {
+
+        jQuery(".productRate").hover(
+                function () {
+                    jQuery(this).append("<span></span>");
+                },
+                function () {
+                    jQuery(this).find("span").remove();
+                });
+
+
+        var rating;
+        var was = false;
+
+        jQuery(".productRate").mousemove(
+
+                function (e) {
+                    if (!e) e = window.event;
+                    if (e.pageX) {
+                        x = e.pageX;
+                    } else if (e.clientX) {
+                        x = e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft) - document.documentElement.clientLeft;
+
+                    }
+                    var posLeft = 0;
+                    var obj = this;
+                    while (obj.offsetParent) {
+                        posLeft += obj.offsetLeft;
+                        obj = obj.offsetParent;
+                    }
+                    var offsetX = x - posLeft,
+                            modOffsetX = 5 * offsetX % this.offsetWidth;
+
+                    rating = parseInt(5 * offsetX / this.offsetWidth);
+
+                    if (modOffsetX > 0) rating += 1;
+
+                    jQuery(this).find("span").eq(0).css("width", rating * 32.8 + "px");
+
+
+                });
+
+        jQuery(".productRate").click(
+            function () {
+                if (!was) {
+                    $.ajax({
+                        url: "/item/rating",
+                        type: "POST",
+                        data: {'rating': rating,
+                               'id': '{{product._id}}'
+                              },
+                        success: function (data) {
+                            $('.productRate').html("<div style=\"width: calc(" + Number(data) + "*20%)\"></div>");
+                            $('.rating_count').html(Number(data));
+                            was = true;
+                        }
+                    })
+                }
+            });
+        });
+    {{/if}}
 </script>

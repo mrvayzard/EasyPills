@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var schema = new Schema({
     imagePath: {type: String, required: false},
     rating: {type: Number, required: false},
+    ratingCount: {type: Number, required: false},
     price: {type: String, required: false},
     offerCount: {type: Number, required: false},
     instructionUrl: {type: String, required: false},

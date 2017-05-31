@@ -81,5 +81,24 @@ router.post('/delete/:id', ensureAuthenticated, function (req, res) {
     });
 });
 
+router.post('/rating', ensureAuthenticated, function (req, res) {
+    Product.findOne({_id: ObjectId(req.body.id)}, function (err, doc) {
+        var ratingCount = doc.ratingCount+1;
+        var rating = ((doc.rating*(ratingCount-1)) + Number(req.body.rating))/ratingCount;
+        Product.update(
+            { _id: ObjectId(req.body.id) },
+            { $set:
+                {
+                    rating: rating,
+                    ratingCount: ratingCount
+                }
+            }
+            ,function () {
+                console.log("Done");
+                res.send(rating.toString());
+            })
+    });
+});
+
 
 module.exports = router;

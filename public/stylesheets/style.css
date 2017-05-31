@@ -344,6 +344,8 @@ span.bold{
 }
 
 .rating_count {
+    max-width: 38pt;
+    overflow: hidden;
     margin-top: 7px;
     margin-left: 10px;
     font-style: italic;
