@@ -32,10 +32,7 @@
                         <p class="release_form"><span class="bold">Форма випуску:</span> {{this.form}}</p>
                     </div>
                     <div class="col-md-4 item_control">
-                        <form action="admin/edit" method="post">
-                            <button type="submit" name="edit" value="{{this.id}}">Редагувати</button>
-                        </form>
-                        <form action="admin/delete" method="post">
+                        <form action="cabinet/delete" method="post">
                             <button type="submit" name="delete" value="{{this.id}}">Видалити</button>
                         </form>
                     </div>
@@ -45,33 +42,3 @@
         {{/each}}
     </div>
 </section>
-
-<script>
-    $(window).scroll(function(request, response) {
-        if ($(window).scrollTop() >= ($(document).height() - $(window).height()) - 100) {
-            console.log("ddd");
-            $.ajax({
-                url: "/load",
-                type: "GET",
-                //data: {count: $("#items_container").find(".item").length},
-                success: function (data) {
-
-                    if (data.length != 0) {
-                        var container = $("#data");
-                        var template = $(".list_item").first().clone();
-                        for (var i = 0; i < 3; i++) {
-                            $(template).find("h2").text(data[i].name);
-                            $(template).find(".active_substance").html('<span class="bold">Діюча речовина:</span> ' + data[i].activeIngredients);
-                            $(template).find(".manufacturer").html('<span class="bold">Виробник:</span> ' + data[i].manufacturer);
-                            $(template).find(".release_form").html('<span class="bold">Форма випуску:</span> ' + data[i].form);
-                            $(template).find("[name=edit]").attr("value", data[i]._id);
-                            $(template).find("[name=delete]").attr("value",data[i]._id);
-                            console.log(data[i]._id);
-                            container.append(template);
-                        }
-                    }
-                }
-            });
-        }
-    });
-</script>

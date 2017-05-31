@@ -35,6 +35,7 @@
     "serve-favicon": "~2.3.2",
     "tress": "^1.0.3",
     "windows-1251": "latest",
-    "requestify": "latest"
+    "requestify": "latest",
+    "mongoose-visual": "latest"
   }
 }
