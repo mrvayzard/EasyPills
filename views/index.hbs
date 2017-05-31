@@ -186,10 +186,13 @@
                                 $(template).find(".manufacturer").html('<span class="bold">Виробник:</span> ' + data[i].manufacturer);
                                 $(template).find("[name=href1]").attr("href", "/item/" + data[i]._id);
                                 $(template).find("[name=href2]").attr("href", "/item/" + data[i]._id);
+                                $(template).find(".productRate").html("<div style=\"width: calc(" + Number(data[i].rating) + "*20%)\"></div>");
+                                $(template).find(".rating_count").html(Number(data[i].rating));
                                 if (data[i].price===undefined)
                                     $(template).find(".price").html("- грн");
                                 else $(template).find(".price").html(data[i].price + " грн");
                                 row.append(template);
+
                             }
                             $("#items_container").append(row);
                         }
